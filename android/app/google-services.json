@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "306498614004",
+    "project_id": "appgao-c95e6",
+    "storage_bucket": "appgao-c95e6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:306498614004:android:da1981e60b02095b9264a1",
+        "android_client_info": {
+          "package_name": "com.appgao"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAwR73bZETcNoFQ82-exrttmiPk1nEInsE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
