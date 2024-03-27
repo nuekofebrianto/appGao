@@ -12,6 +12,7 @@ import ProfilePage from "./ProfilePage";
 
 import { useSelector, useDispatch } from 'react-redux';
 import { getAppGaoUserLogin } from "../redux/actions/loginAction";
+import { Cons } from "../components/Cons";
 
 const Stack = createNativeStackNavigator();
 
@@ -21,17 +22,18 @@ const NavigatorPage = ({ }) => {
     const appGaoUserLogin           = useSelector(state => state.login.getAppGaoUserLogin);
     const dispatch                  = useDispatch();
 
-    StorageService.removeItem('appGaoUserLogin')
+      // StorageService.removeItem('appGaoUserLogin')
 
     useEffect(() => {
         dispatch(getAppGaoUserLogin());
         const timer = setTimeout(() => {
             setIsLoading(false)
-          }, 1000);
-      
-          return () => clearTimeout(timer);
+        }, 1000);
+
+        console.log(appGaoUserLogin)
+        return () => clearTimeout(timer);
     }, [dispatch]);
-    
+
     if (isLoading) {
         return <SplashPage></SplashPage>
     }
@@ -39,7 +41,7 @@ const NavigatorPage = ({ }) => {
     return <NavigationContainer>
         <Stack.Navigator
             screenOptions={{
-                headerShown   : false,
+                  // headerShown   : false,
                 gestureEnabled: true,
             }}
         >
@@ -61,14 +63,14 @@ const NavigatorPage = ({ }) => {
                         name      = "Home"
                         component = {HomePage}
                         options   = {{
-
+                            headerShown: false,
                         }}
                     />
                     <Stack.Screen
                         name      = "Profile"
                         component = {ProfilePage}
                         options   = {{
-
+                            headerShown: false
                         }}
                     />
                 </>

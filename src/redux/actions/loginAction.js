@@ -2,7 +2,7 @@ import axios from "axios";
 import { Cons } from "../../components/Cons";
 import { StorageService } from "../../services/StorageService";
 
-export const getLoginUser = () => {
+export const getUserLogin = () => {
     return (dispatch) => {
         dispatch({
             type   : 'get',

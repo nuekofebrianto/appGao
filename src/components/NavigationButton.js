@@ -1,12 +1,15 @@
 import { View, Text, HStack, Button, VStack, ButtonText } from "@gluestack-ui/themed"
 import { Cons } from "./Cons"
-import { Icon, CalendarDaysIcon, CopyIcon } from "@gluestack-ui/themed"
+import { Icon, CalendarDaysIcon, CopyIcon,CloseIcon } from "@gluestack-ui/themed"
 import { useNavigation } from "@react-navigation/native"
 import { StorageService } from "../services/StorageService"
+import { useDispatch } from "react-redux"
+import { removeAppGaoUserLogin } from "../redux/actions/loginAction"
 
 const NavigationButton = () => {
 
     const navigation = useNavigation();
+    const dispatch = useDispatch();
 
     return <View style={{
         backgroundColor: Cons.logoColor2,
@@ -49,19 +52,20 @@ const NavigationButton = () => {
             </VStack>
 
             <VStack style={{
-                alignItems    : 'center',
-                justifyContent: 'space-between',
-            }} onTouchEnd={() => { navigation.replace('Profile') }} >
-                <Icon as    = {CalendarDaysIcon} size = "lg2" />
+                alignItems: 'center',
+            }}onTouchEnd={() => { dispatch(removeAppGaoUserLogin()); }}>
+                <Icon as    = {CloseIcon} size = "lg2" />
                 <Text style = {{ fontSize: 10, }}>Profile</Text>
             </VStack>
 
             <VStack style={{
-                alignItems: 'center',
-            }}onTouchEnd={() => { StorageService.removeItem('appGaoUserLogin') }}>
+                alignItems    : 'center',
+                justifyContent: 'space-between',
+            }} onTouchStart={() => { navigation.replace('Profile') }} >
                 <Icon as    = {CalendarDaysIcon} size = "lg2" />
                 <Text style = {{ fontSize: 10, }}>Profile</Text>
             </VStack>
+
         </HStack>
     </View>
 }

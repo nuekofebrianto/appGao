@@ -1,13 +1,31 @@
-import { useState } from "react"
 import { config } from "@gluestack-ui/config"
-import { View, Text, GluestackUIProvider, StatusBar } from "@gluestack-ui/themed"
+import {
+    Button, ButtonText,
+    GluestackUIProvider,
+    HStack,
+    Image,
+    RefreshControl,
+    ScrollView,
+    StatusBar,
+    Text,
+    VStack,
+    View,
+    Icon,
+    MailIcon,
+    InfoIcon,
+    PhoneIcon,
+    EditIcon,
+
+} from "@gluestack-ui/themed"
+import { useEffect, useState } from "react"
+import { useSelector } from "react-redux"
 import { Cons } from "../components/Cons"
-import { ScrollView, RefreshControl } from "@gluestack-ui/themed"
 import NavigationButton from "../components/NavigationButton"
 
 const ProfilePage = () => {
-    
+
     const [refreshing, setRefreshing] = useState(false);
+    const appGaoUserLogin             = useSelector(state => state.login.getAppGaoUserLogin);
 
     const onRefresh = () => {
         setRefreshing(true);
@@ -17,17 +35,27 @@ const ProfilePage = () => {
         }, 2000);
     };
 
-    return     <GluestackUIProvider config = {config}>
-    <StatusBar backgroundColor             = {Cons.logoColor2} barStyle = "light-content"></StatusBar>
+    useEffect(() => {
+        console.log('profile page : ', appGaoUserLogin.poto_profile_path)
+    })
+
+    return <GluestackUIProvider config = {config}>
+        <StatusBar
+            backgroundColor = 'transparent'
+            barStyle        = "light-content"
+            translucent={true}
+        ></StatusBar>
 
         <View style={{
-            flex           : 1,
-            justifyContent : 'center',
-            alignItems     : 'center',
-            backgroundColor: "#FFFFFF"
+            flex          : 1,
+            justifyContent: 'center',
+            alignItems    : 'center',
+              // backgroundColor: "#FFFFFF",
+
         }}>
             <ScrollView
                 contentContainerStyle = {{ flexGrow: 1 }}
+                w                     = '100%'
                 refreshControl        = {
                     <RefreshControl
                         refreshing = {refreshing}
@@ -36,8 +64,35 @@ const ProfilePage = () => {
                     />
                 }
             >
-                <View style = {{ flex: 1, justifyContent: 'start', alignItems: 'center' }}>
-                    <Text>Pull down to refresh</Text>
+
+                <View
+                    position                = "absolute"
+                    h                       = {300}
+                    w                       = {Cons.sw1}
+                    backgroundColor         = {Cons.logoColor2}
+                    borderBottomLeftRadius  = {50}
+                    borderBottomRightRadius = {50}
+                >
+                    <View
+                        position        = "absolute"
+                        w               = {150}
+                        h               = {150}
+                        borderRadius    = {150}
+                        backgroundColor = "white"
+                        opacity         = {0.3}
+                        top             = {-60}
+                        left            = {-60}
+                    ></View>
+                    <View
+                        position        = "absolute"
+                        w               = {160}
+                        h               = {160}
+                        borderRadius    = {180}
+                        backgroundColor = "white"
+                        opacity         = {0.3}
+                        top             = {60}
+                        right            = {-40}
+                    ></View>
                 </View>
             </ScrollView>
 

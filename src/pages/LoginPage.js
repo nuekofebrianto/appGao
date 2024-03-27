@@ -1,7 +1,7 @@
 import { config } from "@gluestack-ui/config";
 import { Button, ButtonText, GluestackUIProvider, KeyboardAvoidingView } from '@gluestack-ui/themed';
 import LottieView from 'lottie-react-native';
-import { ActivityIndicator, StatusBar, Text, View } from "react-native";
+import { ActivityIndicator, Alert, StatusBar, Text, View } from "react-native";
 import { Cons } from "../components/Cons";
 import CusFormControl from "../components/CusFormControl";
 
@@ -30,14 +30,17 @@ const LoginPage = ({ navigation }) => {
         )
             .then(response => {
                 StorageService.storeItemObject('appGaoUserLogin', response.data)
+                console.log('success login')
                 dispatch(getAppGaoUserLogin())
-
+                setIsSpinning(false)
             }).catch(error => {
                 console.log(error.response.data.message)
-            })
-            .finally(() => {
+                Alert.alert('Failed',error.response.data.message);
                 setIsSpinning(false)
             })
+            // .finally(() => {
+            //     setIsSpinning(false)
+            // })
 
     }
 
