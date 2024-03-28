@@ -8,6 +8,7 @@ import { rootReducer } from "./src/redux/reducers";
 
 import MessagingService from "./src/services/MessagingService";
 import NavigatorPage from "./src/pages/NavigatorPage";
+import { faIcon } from "./src/components/CusIcon";
 
 const store = createStore(rootReducer, compose(applyMiddleware(thunk)));
 
@@ -18,7 +19,7 @@ messaging().setBackgroundMessageHandler(async remoteMessage => {
 const App = () => {
 
   useEffect(() => {
-
+    faIcon.add
     MessagingService()
 
   }, []);

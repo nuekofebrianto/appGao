@@ -1,20 +1,24 @@
 import { View, Text, HStack, Button, VStack, ButtonText } from "@gluestack-ui/themed"
 import { Cons } from "./Cons"
-import { Icon, CalendarDaysIcon, CopyIcon,CloseIcon } from "@gluestack-ui/themed"
+import { Icon, CalendarDaysIcon, CopyIcon, CloseIcon } from "@gluestack-ui/themed"
 import { useNavigation } from "@react-navigation/native"
 import { StorageService } from "../services/StorageService"
 import { useDispatch } from "react-redux"
 import { removeAppGaoUserLogin } from "../redux/actions/loginAction"
 
+import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome"
+import { SvgXml } from "react-native-svg"
+import { tablerIcon } from "./CusIcon"
+
 const NavigationButton = () => {
 
     const navigation = useNavigation();
-    const dispatch = useDispatch();
+    const dispatch   = useDispatch();
 
     return <View style={{
         backgroundColor: Cons.logoColor2,
         position       : "absolute",
-        height         : 60,
+        height         : 70,
         width          : Cons.sw1 - 40,
         bottom         : 20,
         borderRadius   : 200,
@@ -32,7 +36,7 @@ const NavigationButton = () => {
         elevation    : 2,
     }}>
         <HStack style={{
-            height         : 60,
+            height         : 70,
             width          : Cons.sw1 - 40,
             top            : 1,
             borderRadius   : 200,
@@ -47,23 +51,25 @@ const NavigationButton = () => {
                 alignItems    : 'center',
                 justifyContent: 'space-between',
             }} onTouchStart={() => { navigation.replace('Home') }}>
-                <Icon as    = {CopyIcon} size = "lg2" />
-                <Text style = {{ fontSize: 10, }}>Home</Text>
+                <SvgXml xml   = {tablerIcon.home} color = 'gray' />
+                <Text   style = {{ fontSize: 10, }}>Home</Text>
             </VStack>
 
             <VStack style={{
                 alignItems: 'center',
-            }}onTouchEnd={() => { dispatch(removeAppGaoUserLogin()); }}>
-                <Icon as    = {CloseIcon} size = "lg2" />
-                <Text style = {{ fontSize: 10, }}>Profile</Text>
+            }}
+              // onTouchEnd={() => { dispatch(removeAppGaoUserLogin()); }}
+            >
+                <SvgXml xml   = {tablerIcon.checklist} color = 'gray' />
+                <Text   style = {{ fontSize: 10, }}>Profile</Text>
             </VStack>
 
             <VStack style={{
                 alignItems    : 'center',
                 justifyContent: 'space-between',
             }} onTouchStart={() => { navigation.replace('Profile') }} >
-                <Icon as    = {CalendarDaysIcon} size = "lg2" />
-                <Text style = {{ fontSize: 10, }}>Profile</Text>
+                <SvgXml xml   = {tablerIcon.user} />
+                <Text   style = {{ fontSize: 12, color: Cons.logoColor2 }}>Profile</Text>
             </VStack>
 
         </HStack>

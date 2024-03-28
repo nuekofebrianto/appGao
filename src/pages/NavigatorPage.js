@@ -60,17 +60,17 @@ const NavigatorPage = ({ }) => {
             ) : (
                 <>
                     <Stack.Screen
-                        name      = "Home"
-                        component = {HomePage}
-                        options   = {{
-                            headerShown: false,
-                        }}
-                    />
-                    <Stack.Screen
                         name      = "Profile"
                         component = {ProfilePage}
                         options   = {{
                             headerShown: false
+                        }}
+                    />
+                    <Stack.Screen
+                        name      = "Home"
+                        component = {HomePage}
+                        options   = {{
+                            headerShown: false,
                         }}
                     />
                 </>

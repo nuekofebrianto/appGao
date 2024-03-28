@@ -16,9 +16,9 @@ export const Cons = {
     negativeColor: "$rose600",
     bgColor      : "#f6f6f6",
 
-    // apiServer: "http://192.168.202.18:8000",
+      // apiServer: "http://192.168.202.18:8000",
     apiServer: "http://192.168.20.18:8000",
-    // apiServer: "http://192.168.68.74:8000",
+      // apiServer: "http://192.168.68.74:8000",
 
     logoColor1: "#393186",
     logoColor2: "#2A61EE",
