@@ -10,15 +10,18 @@ import {
 } from "@gluestack-ui/themed"
 import { useEffect, useState } from "react"
 import { LinearGradient as RNLinearGradient } from "react-native-linear-gradient"
-import { useSelector } from "react-redux"
+import { useSelector, useDispatch } from "react-redux"
 import { Cons } from "../components/Cons"
 import NavigationButton from "../components/NavigationButton"
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome"
+import { activePageProfile } from "../redux/actions/globalAction"
 
 const ProfilePage = () => {
 
     const [refreshing, setRefreshing] = useState(false);
     const appGaoUserLogin             = useSelector(state => state.login.getAppGaoUserLogin);
+    const activePage                  = useSelector(state => state.global.getActivePage);
+    const dispatch                    = useDispatch();
 
     const onRefresh = () => {
         setRefreshing(true);
@@ -30,6 +33,9 @@ const ProfilePage = () => {
 
     useEffect(() => {
         console.log('profile pages : ', appGaoUserLogin.poto_profile_path)
+        dispatch(activePageProfile())
+        console.log('active page : ', activePage)
+
     })
 
     return <GluestackUIProvider config = {config}>
@@ -58,7 +64,7 @@ const ProfilePage = () => {
                 }
             >
                 <LinearGradient
-                    colors   = {['#01A4D8', '#0A68AA', '#162C76']}
+                    colors   = {['#e6293190', '#e62931', '#e62931']}
                     style    = {{ flex: 1 }}
                     as       = {RNLinearGradient}
                     position = "absolute"
@@ -74,7 +80,7 @@ const ProfilePage = () => {
                         h               = {150}
                         borderRadius    = {150}
                         backgroundColor = "white"
-                        opacity         = {0.06}
+                        opacity         = {0.2}
                         top             = {-60}
                         left            = {-60}
                     ></View>
@@ -84,7 +90,7 @@ const ProfilePage = () => {
                         h               = {160}
                         borderRadius    = {180}
                         backgroundColor = "white"
-                        opacity         = {0.06}
+                        opacity         = {0.2}
                         top             = {80}
                         right           = {-40}
                     ></View>
@@ -94,7 +100,7 @@ const ProfilePage = () => {
                         h               = {50}
                         borderRadius    = {50}
                         backgroundColor = "white"
-                        opacity         = {0.06}
+                        opacity         = {0.2}
                         top             = {160}
                         left            = {40}
                     ></View>
@@ -104,7 +110,7 @@ const ProfilePage = () => {
                         h               = {100}
                         borderRadius    = {100}
                         backgroundColor = "white"
-                        opacity         = {0.06}
+                        opacity         = {0.2}
                         top             = {-30}
                         right           = {100}
                     ></View>
@@ -134,7 +140,7 @@ const ProfilePage = () => {
                         color    = "white"
                         size     = {20}
                         position = 'absolute'
-                        top   = {0}
+                        top      = {0}
                         right    = {0}
                     />
 

@@ -58,10 +58,10 @@ const LoginPage = ({ navigation }) => {
             <StatusBar backgroundColor = {Cons.logoColor2} barStyle = "light-content"></StatusBar>
 
             <LottieView
-                source = {require('../assets/lotties/prioritasLottie.json')}
+                source = {require('../assets/lotties/dtuLottie.json')}
                 autoPlay
                 loop  = {false}
-                style = {{ width: 500, height: 500, position: "absolute", top: -90, }}
+                style = {{ width: 200, height: 200, position: "absolute", top: 50, }}
             />
 
             <KeyboardAvoidingView
@@ -73,9 +73,9 @@ const LoginPage = ({ navigation }) => {
                         marginBottom: 30,
                         alignSelf   : 'center',
                         color       : 'black'
-                    }}>Gao Prioritas</Text>
+                    }}>Dapensi Trio Usaha</Text>
 
-                    <Text style = {{ fontSize: 20, color: "black", fontFamily: "sigmar", marginBottom: 10 }}>Masuk</Text>
+                    <Text style = {{ fontSize: 20, color: "black", fontFamily: "sigmar", marginBottom: 10 }}>Masuk GAO</Text>
 
                     <CusFormControl
                         placeholder  = {"Username atau Email"}

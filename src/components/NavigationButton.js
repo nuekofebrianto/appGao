@@ -1,12 +1,10 @@
-import { View, Text, HStack, Button, VStack, ButtonText } from "@gluestack-ui/themed"
-import { Cons } from "./Cons"
-import { Icon, CalendarDaysIcon, CopyIcon, CloseIcon } from "@gluestack-ui/themed"
+import { HStack, Text, VStack, View } from "@gluestack-ui/themed"
 import { useNavigation } from "@react-navigation/native"
-import { StorageService } from "../services/StorageService"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { removeAppGaoUserLogin } from "../redux/actions/loginAction"
+import { Cons } from "./Cons"
+import { useEffect } from "react"
 
-import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome"
 import { SvgXml } from "react-native-svg"
 import { tablerIcon } from "./CusIcon"
 
@@ -15,30 +13,36 @@ const NavigationButton = () => {
     const navigation = useNavigation();
     const dispatch   = useDispatch();
 
+    const activePage = useSelector(state => state.global.getActivePage);
+
+    useEffect(() => {
+        console.log('navigation : ', activePage)
+    }, [dispatch])
+
     return <View style={{
-        backgroundColor: Cons.logoColor2,
-        position       : "absolute",
-        height         : 70,
-        width          : Cons.sw1 - 40,
-        bottom         : 20,
-        borderRadius   : 200,
-        padding        : 10,
-        alignItems     : 'center',
-        alignItems     : 'center',
-        justifyContent : 'center',
-        shadowColor    : '#000',
-        shadowOffset   : {
+          // backgroundColor: Cons.logoColor2,
+        position      : "absolute",
+        height        : 70,
+        width         : Cons.sw1 - 40,
+        bottom        : 20,
+        borderRadius  : 200,
+        padding       : 10,
+        alignItems    : 'center',
+        alignItems    : 'center',
+        justifyContent: 'center',
+        shadowColor   : Cons.logoColor2,
+        shadowOffset  : {
             width : 0,
             height: 0,
         },
-        shadowOpacity: 0.5,
+        shadowOpacity: 1,
         shadowRadius : 10,
-        elevation    : 2,
+        elevation    : 3,
     }}>
         <HStack style={{
-            height         : 70,
-            width          : Cons.sw1 - 40,
-            top            : 1,
+            height         : 67,
+            width          : Cons.sw1 - 42,
+            top            : 5,
             borderRadius   : 200,
             padding        : 10,
             alignItems     : 'center',
@@ -51,25 +55,70 @@ const NavigationButton = () => {
                 alignItems    : 'center',
                 justifyContent: 'space-between',
             }} onTouchStart={() => { navigation.replace('Home') }}>
-                <SvgXml xml   = {tablerIcon.home} color = 'gray' />
-                <Text   style = {{ fontSize: 10, }}>Home</Text>
+                {activePage == 'HOME' ? (
+                    <>
+                        <SvgXml xml   = {tablerIcon.homeACtive} />
+                        <Text   style = {{ fontSize: 12, color: Cons.logoColor2 }}>Home</Text>
+                    </>
+                ) : (
+                    <>
+                        <SvgXml xml   = {tablerIcon.home} />
+                        <Text   style = {{ fontSize: 12 }}>Home</Text>
+                    </>
+                )}
             </VStack>
 
             <VStack style={{
                 alignItems: 'center',
             }}
-              // onTouchEnd={() => { dispatch(removeAppGaoUserLogin()); }}
+                onTouchStart = {() => {}}
             >
-                <SvgXml xml   = {tablerIcon.checklist} color = 'gray' />
-                <Text   style = {{ fontSize: 10, }}>Profile</Text>
+                {activePage == 'PREVENTIF' ? (
+                    <>
+                        <SvgXml xml   = {tablerIcon.prefentivActive} />
+                        <Text   style = {{ fontSize: 12, color: Cons.logoColor2 }}>Preventif</Text>
+                    </>
+                ) : (
+                    <>
+                        <SvgXml xml   = {tablerIcon.preventif} />
+                        <Text   style = {{ fontSize: 12 }}>Preventif</Text>
+                    </>
+                )}
+            </VStack>
+
+            <VStack style={{
+                alignItems: 'center',
+            }}
+                onTouchStart = {() => {  }}
+            >
+                {activePage == 'TICKET' ? (
+                    <>
+                        <SvgXml xml   = {tablerIcon.ticketACtive} />
+                        <Text   style = {{ fontSize: 12, color: Cons.logoColor2 }}>Ticket</Text>
+                    </>
+                ) : (
+                    <>
+                        <SvgXml xml   = {tablerIcon.ticket} />
+                        <Text   style = {{ fontSize: 12 }}>Ticket</Text>
+                    </>
+                )}
             </VStack>
 
             <VStack style={{
                 alignItems    : 'center',
                 justifyContent: 'space-between',
             }} onTouchStart={() => { navigation.replace('Profile') }} >
-                <SvgXml xml   = {tablerIcon.user} />
-                <Text   style = {{ fontSize: 12, color: Cons.logoColor2 }}>Profile</Text>
+                {activePage == 'PROFILE' ? (
+                    <>
+                        <SvgXml xml   = {tablerIcon.userActive} />
+                        <Text   style = {{ fontSize: 12, color: Cons.logoColor2 }}>Profile</Text>
+                    </>
+                ) : (
+                    <>
+                        <SvgXml xml   = {tablerIcon.user} />
+                        <Text   style = {{ fontSize: 12 }}>Profile</Text>
+                    </>
+                )}
             </VStack>
 
         </HStack>

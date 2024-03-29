@@ -21,5 +21,5 @@ export const Cons = {
       // apiServer: "http://192.168.68.74:8000",
 
     logoColor1: "#393186",
-    logoColor2: "#2A61EE",
+    logoColor2: "#E62931",
 }
