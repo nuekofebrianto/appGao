@@ -32,9 +32,7 @@ const ProfilePage = () => {
     };
 
     useEffect(() => {
-        console.log('profile pages : ', appGaoUserLogin.poto_profile_path)
         dispatch(activePageProfile())
-        console.log('active page : ', activePage)
 
     })
 

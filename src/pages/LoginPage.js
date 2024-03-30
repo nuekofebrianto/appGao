@@ -75,7 +75,7 @@ const LoginPage = ({ navigation }) => {
                         color       : 'black'
                     }}>Dapensi Trio Usaha</Text>
 
-                    <Text style = {{ fontSize: 20, color: "black", fontFamily: "sigmar", marginBottom: 10 }}>Masuk GAO</Text>
+                    <Text style = {{ fontSize: 20, color: "black", fontFamily: "sigmar", marginBottom: 10 }}>Login to Your Account</Text>
 
                     <CusFormControl
                         placeholder  = {"Username atau Email"}
