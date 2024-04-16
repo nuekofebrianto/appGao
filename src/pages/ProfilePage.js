@@ -1,20 +1,24 @@
 import { config } from "@gluestack-ui/config"
 import {
     GluestackUIProvider,
+    HStack,
     Image,
     LinearGradient,
     RefreshControl,
     ScrollView,
     StatusBar,
+    Text,
+    VStack,
     View
 } from "@gluestack-ui/themed"
 import { useEffect, useState } from "react"
 import { LinearGradient as RNLinearGradient } from "react-native-linear-gradient"
-import { useSelector, useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { Cons } from "../components/Cons"
 import NavigationButton from "../components/NavigationButton"
-import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome"
 import { activePageProfile } from "../redux/actions/globalAction"
+import { Button, ButtonText } from "@gluestack-ui/themed"
+import { removeAppGaoUserLogin } from "../redux/actions/loginAction"
 
 const ProfilePage = () => {
 
@@ -33,8 +37,7 @@ const ProfilePage = () => {
 
     useEffect(() => {
         dispatch(activePageProfile())
-
-    })
+    },[dispatch])
 
     return <GluestackUIProvider config = {config}>
         <StatusBar
@@ -48,7 +51,6 @@ const ProfilePage = () => {
             justifyContent: 'center',
             alignItems    : 'center',
               // backgroundColor: "#FFFFFF",
-
         }}>
             <ScrollView
                 contentContainerStyle = {{ flexGrow: 1 }}
@@ -57,10 +59,11 @@ const ProfilePage = () => {
                     <RefreshControl
                         refreshing = {refreshing}
                         onRefresh  = {onRefresh}
-                        colors     = {['#9Bd35A', '#689F38']}
+                        colors     = {[Cons.logoColor2, '#689F38']}
                     />
                 }
             >
+
                 <LinearGradient
                     colors   = {['#e6293190', '#e62931', '#e62931']}
                     style    = {{ flex: 1 }}
@@ -133,21 +136,118 @@ const ProfilePage = () => {
 
                     />
 
-                    <FontAwesomeIcon
+                    {/* <FontAwesomeIcon
                         icon     = "fa-camera"
                         color    = "white"
                         size     = {20}
                         position = 'absolute'
                         top      = {0}
                         right    = {0}
-                    />
+                    /> */}
 
+                </View>
+
+                <Text style={{
+                    top      : 90,
+                    fontSize : 20,
+                    color    : 'white',
+                    alignSelf: 'center',
+                }}>
+                    {appGaoUserLogin.user_mitra?.nama}
+                </Text>
+
+                <View
+                    style={{
+                        height   : Cons.sh1,
+                        width    : Cons.sw1,
+                        top      : 120,
+                        alignSelf: "Center",
+                        padding  : 20,
+                    }}
+                >
+                    <VStack
+                        style={{
+                            backgroundColor: "white",
+                            height         : Cons.sh2,
+                            borderRadius   : 20,
+                            shadowColor    : Cons.logoColor2,
+                            shadowOffset   : {
+                                width : 0,
+                                height: 0,
+                            },
+                            shadowOpacity: 1,
+                            shadowRadius : 10,
+                            elevation    : 3,
+                            paddingTop   : 20,
+                            alignItems   : 'center',
+                        }}
+                    >
+
+                        <HStack style={{
+                            padding          : 10,
+                            width            : '100%',
+                            alignContent     : "flex-start",
+                            borderBottomColor: 'grey',
+                            borderBottomWidth: 0.5,
+                        }}>
+                            <Text w = {100}>Nik</Text>
+                            <Text>{appGaoUserLogin.user_mitra?.nik}</Text>
+                        </HStack>
+                        <HStack style={{
+                            padding          : 10,
+                            width            : '100%',
+                            alignContent     : "flex-start",
+                            borderBottomColor: 'grey',
+                            borderBottomWidth: 0.5,
+                        }}>
+                            <Text w = {100}>Username</Text>
+                            <Text>{appGaoUserLogin.username}</Text>
+                        </HStack>
+                        <HStack style={{
+                            padding          : 10,
+                            width            : '100%',
+                            alignContent     : "flex-start",
+                            borderBottomColor: 'grey',
+                            borderBottomWidth: 0.5,
+                        }}>
+                            <Text w = {100}>Email</Text>
+                            <Text>{appGaoUserLogin.email}</Text>
+                        </HStack>
+
+                        <HStack style={{
+                            padding     : 10,
+                            width       : '100%',
+                            alignContent: "flex-start",
+                            borderBottomColor: 'grey',
+                            borderBottomWidth: 0.5,
+                        }}>
+                            <Text w = {100}>No Hp</Text>
+                            <Text w = {Cons.sw2}>{appGaoUserLogin.user_mitra?.nohp}</Text>
+                        </HStack>
+
+                        <HStack style={{
+                            padding     : 10,
+                            width       : '100%',
+                            alignContent: "flex-start",
+                        }}>
+                            <Text w = {100}>Address</Text>
+                            <Text w = {Cons.sw2}>{appGaoUserLogin.user_mitra?.alamat}</Text>
+                        </HStack>
+
+                        <Button
+                            position        = "absolute"
+                            bottom          = {20}
+                            backgroundColor = {Cons.logoColor2}
+                            onPress         = {() => { dispatch(removeAppGaoUserLogin()); }}>
+                            <ButtonText>Logout</ButtonText>
+                        </Button>
+                    </VStack>
                 </View>
 
             </ScrollView>
             <NavigationButton></NavigationButton>
         </View>
-    </GluestackUIProvider>
+    </GluestackUIProvider >
 }
 
 export default ProfilePage

@@ -46,10 +46,7 @@ const HomePage = () => {
                 }
             >
                 <View style = {{ flex: 1, justifyContent: 'start', alignItems: 'center' }}>
-                    <Text>Pull down to refresh</Text>
-                    <Button onPress = {() => { dispatch(removeAppGaoUserLogin()); }}>
-                        <ButtonText>Logout</ButtonText>
-                    </Button>
+                   
                 </View>
             </ScrollView>
 
