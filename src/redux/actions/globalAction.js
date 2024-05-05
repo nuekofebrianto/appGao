@@ -10,24 +10,12 @@ export const activePageHome = () => {
     }
 }
 
-export const activePagePreventif = () => {
+export const activePageOperation = () => {
     return (dispatch) => {
         dispatch({
             type   : 'ACTIVE_PAGE',
             payload: {
-                activePage: 'PREVENTIF',
-            }
-        })
-
-    }
-}
-
-export const activePageTicket = () => {
-    return (dispatch) => {
-        dispatch({
-            type   : 'ACTIVE_PAGE',
-            payload: {
-                activePage: 'TICKET',
+                activePage: 'OPERATION',
             }
         })
 

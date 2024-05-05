@@ -1,9 +1,8 @@
 import { HStack, Text, VStack, View } from "@gluestack-ui/themed"
 import { useNavigation } from "@react-navigation/native"
-import { useDispatch, useSelector } from "react-redux"
-import { removeAppGaoUserLogin } from "../redux/actions/loginAction"
-import { Cons } from "./Cons"
 import { useEffect } from "react"
+import { useDispatch, useSelector } from "react-redux"
+import { Cons } from "./Cons"
 
 import { SvgXml } from "react-native-svg"
 import { tablerIcon } from "./CusIcon"
@@ -71,35 +70,17 @@ const NavigationButton = () => {
             <VStack style={{
                 alignItems: 'center',
             }}
-                onTouchStart = {() => {}}
+                onTouchStart = {() => { navigation.replace('Operation') }}
             >
-                {activePage == 'PREVENTIF' ? (
+                {activePage == 'OPERATION' ? (
                     <>
                         <SvgXml xml   = {tablerIcon.prefentivActive} />
-                        <Text   style = {{ fontSize: 12, color: Cons.logoColor2 }}>Preventif</Text>
+                        <Text   style = {{ fontSize: 12, color: Cons.logoColor2 }}>Operation</Text>
                     </>
                 ) : (
                     <>
                         <SvgXml xml   = {tablerIcon.preventif} />
-                        <Text   style = {{ fontSize: 12 }}>Preventif</Text>
-                    </>
-                )}
-            </VStack>
-
-            <VStack style={{
-                alignItems: 'center',
-            }}
-                onTouchStart = {() => {  }}
-            >
-                {activePage == 'TICKET' ? (
-                    <>
-                        <SvgXml xml   = {tablerIcon.ticketACtive} />
-                        <Text   style = {{ fontSize: 12, color: Cons.logoColor2 }}>Ticket</Text>
-                    </>
-                ) : (
-                    <>
-                        <SvgXml xml   = {tablerIcon.ticket} />
-                        <Text   style = {{ fontSize: 12 }}>Ticket</Text>
+                        <Text   style = {{ fontSize: 12 }}>Operation</Text>
                     </>
                 )}
             </VStack>

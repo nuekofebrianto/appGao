@@ -2,27 +2,23 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { useEffect, useState } from "react";
-import { StorageService } from "../services/StorageService";
-import { View, Text } from "@gluestack-ui/themed";
 
-import LoginPage from "./LoginPage";
 import HomePage from "./HomePage";
-import SplashPage from "./SplashPage";
+import LoginPage from "./LoginPage";
+import OperationPage from "./Operations/Index";
 import ProfilePage from "./ProfilePage";
+import SplashPage from "./SplashPage";
 
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getAppGaoUserLogin } from "../redux/actions/loginAction";
-import { Cons } from "../components/Cons";
 
 const Stack = createNativeStackNavigator();
 
 const NavigatorPage = ({ }) => {
 
     const [isLoading, setIsLoading] = useState(true)
-    const appGaoUserLogin           = useSelector(state => state.login.getAppGaoUserLogin);
-    const dispatch                  = useDispatch();
-
-      // StorageService.removeItem('appGaoUserLogin')
+    const appGaoUserLogin = useSelector(state => state.login.getAppGaoUserLogin);
+    const dispatch = useDispatch();
 
     useEffect(() => {
         dispatch(getAppGaoUserLogin());
@@ -30,7 +26,6 @@ const NavigatorPage = ({ }) => {
             setIsLoading(false)
         }, 1000);
 
-        console.log(appGaoUserLogin)
         return () => clearTimeout(timer);
     }, [dispatch]);
 
@@ -41,7 +36,7 @@ const NavigatorPage = ({ }) => {
     return <NavigationContainer>
         <Stack.Navigator
             screenOptions={{
-                  // headerShown   : false,
+                // headerShown   : false,
                 gestureEnabled: true,
             }}
         >
@@ -49,9 +44,9 @@ const NavigatorPage = ({ }) => {
                 <>
 
                     <Stack.Screen
-                        name      = "SignIn"
-                        component = {LoginPage}
-                        options   = {{
+                        name="SignIn"
+                        component={LoginPage}
+                        options={{
                             headerShown: false,
                         }}
                     />
@@ -60,19 +55,28 @@ const NavigatorPage = ({ }) => {
             ) : (
                 <>
                     <Stack.Screen
-                        name      = "Profile"
-                        component = {ProfilePage}
-                        options   = {{
-                            headerShown: false
-                        }}
-                    />
-                    <Stack.Screen
-                        name      = "Home"
-                        component = {HomePage}
-                        options   = {{
+                        name="Home"
+                        component={HomePage}
+                        options={{
                             headerShown: false,
                         }}
                     />
+                    <Stack.Screen
+                        name="Operation"
+                        component={OperationPage}
+                        options={{
+                            headerShown: false
+                        }}
+                    />
+
+                    <Stack.Screen
+                        name="Profile"
+                        component={ProfilePage}
+                        options={{
+                            headerShown: false
+                        }}
+                    />
+
                 </>
             )
             }
