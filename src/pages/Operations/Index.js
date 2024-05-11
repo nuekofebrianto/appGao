@@ -1,15 +1,19 @@
 import { config } from "@gluestack-ui/config"
-import { GluestackUIProvider, RefreshControl, ScrollView, StatusBar, View } from "@gluestack-ui/themed"
+import { Button, ButtonGroup, ButtonText, GluestackUIProvider, RefreshControl, ScrollView, StatusBar, Text, View } from "@gluestack-ui/themed"
 import { useEffect, useState } from "react"
 import { useDispatch } from "react-redux"
 import { activePageOperation } from "../../redux/actions/globalAction"
 import { Cons } from "../../components/Cons"
 import NavigationButton from "../../components/NavigationButton"
-import { Text } from "react-native-svg"
+import LottieView from "lottie-react-native"
+import { Pressable } from "@gluestack-ui/themed"
+import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome"
+import { useNavigation } from "@react-navigation/native"
 
 const OperationPage = () => {
 
     const [refreshing, setRefreshing] = useState(false);
+    const navigation                  = useNavigation();
     const dispatch                    = useDispatch();
 
     const onRefresh = () => {
@@ -44,8 +48,35 @@ const OperationPage = () => {
                     />
                 }
             >
-                <View style = {{ flex: 1, justifyContent: 'start', alignItems: 'center' }}>
-                   <Text>HELLOW</Text>
+                <View style={{
+                    flex          : 1,
+                    justifyContent: 'start',
+                    alignItems    : 'center',
+                    padding       : 20,
+                }}>
+
+                    <LottieView
+                        source = {require('../../assets/lotties/checklistLottie.json')}
+                        autoPlay
+                        loop  = {false}
+                        style = {{ width: 200, height: 200, }}
+                    />
+
+                    <Pressable
+                        onPress        = {() => { navigation.push('Preventif') }}
+                        p              = "$5"
+                        w              = {Cons.sw1 - 30}
+                        borderColor    = {Cons.textColor}
+                        borderWidth    = {0.6}
+                        borderRadius   = {10}
+                        flexDirection  = "row"
+                        justifyContent = "space-between"
+                        alignItems     = "center"
+                    >
+                        <Text            color = {Cons.textColor} fontSize = {20}>List Preventif</Text>
+                        <FontAwesomeIcon icon  = "arrow-right" size        = {20} color = "grey" />
+                    </Pressable>
+
                 </View>
             </ScrollView>
 
