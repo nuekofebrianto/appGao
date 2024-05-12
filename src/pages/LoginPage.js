@@ -22,7 +22,7 @@ const LoginPage = ({ navigation }) => {
         setIsSpinning(true)
 
         axios.post(
-            Cons.apiServer + '/api/sign-in',
+            Cons.apiServer + '/api/sign-in-gao',
             {
                 username: username,
                 password: password

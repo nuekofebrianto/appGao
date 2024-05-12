@@ -11,11 +11,11 @@ export const Cons = {
   sh3: Dimensions.get('window').height / 3,
   sh4: Dimensions.get('window').height / 4,
 
-  primaryColor : "$primary500",
-  positiveColor: "$tertiary600",
-  negativeColor: "$rose600",
+  primaryColor : "#0077E6",
+  positiveColor: "#059669",
+  negativeColor: "#e11d48",
   bgColor      : "#f6f6f6",
-  textColor    : "$backgroundLight900",
+  textColor    : "#262626",
   
   apiServer: "http://192.168.71.18:8000",
     // apiServer: "http://192.168.205.18:8000",
