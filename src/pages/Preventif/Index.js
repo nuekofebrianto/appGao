@@ -1,57 +1,80 @@
 import { config } from "@gluestack-ui/config"
-import { GluestackUIProvider, RefreshControl, ScrollView, StatusBar, View, Text } from "@gluestack-ui/themed"
-import { useEffect, useState } from "react"
-import { useDispatch, useSelector } from "react-redux"
+import { GluestackUIProvider, StatusBar, Text } from "@gluestack-ui/themed"
+import React, { useEffect } from "react"
+import { SceneMap, TabBar, TabView } from "react-native-tab-view"
+import { useDispatch } from "react-redux"
 import { Cons } from "../../components/Cons"
-import { dataTablePreventif } from "../../redux/actions/preventifAction"
-import CusList from "../../components/CusList"
+import FirstTab from "./FirstTab"
+import SecondTab from "./SecondTab"
+import ThirdTab from "./ThirdTab"
+
+const FirstRoute = () => (
+    <FirstTab />
+);
+
+const SecondRoute = () => (
+    <SecondTab />
+);
+
+const ThirdRoute = () => (
+    <ThirdTab />
+);
+
+const renderTabBar = props => (
+    <TabBar
+        {...props}
+        indicatorStyle={{ backgroundColor: Cons.logoColor2 }}
+        style={{ backgroundColor: 'white' }}
+        renderLabel={({ route, focused, color }) => (
+            <Text style={{ color: getTabTextColor(route.key), textAlign: 'center' }}>{route.title}</Text>
+        )}
+
+    />
+);
+
+const getTabTextColor = (key) => {
+    switch (key) {
+        case 'first':
+            return Cons.logoColor1;
+        case 'second':
+            return Cons.positiveColor;
+        case 'third':
+            return Cons.logoColor2;
+        default:
+            return Cons.textColor;
+    }
+};
 
 const PreventifPage = () => {
 
-    const dataTable = useSelector(state => state.preventif.getResult);
+    const [index, setIndex] = React.useState(0);
+    const [routes] = React.useState([
+        { key: 'first', title: 'Semua' },
+        { key: 'second', title: 'Complete' },
+        { key: 'third', title: 'Waiting Approval' },
+    ]);
 
-    const [refreshing, setRefreshing] = useState(false);
-    const dispatch                    = useDispatch();
+    const renderScene = SceneMap({
+        first: FirstRoute,
+        second: SecondRoute,
+        third: ThirdRoute,
+    });
 
-    const onRefresh = () => {
-        setRefreshing(true);
-        dispatch(dataTablePreventif())
-
-        setTimeout(() => {
-            setRefreshing(false);
-        }, 2000);
-    };
+    const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(dataTablePreventif())
     }, [dispatch])
 
-    return     <GluestackUIProvider config = {config}>
-    <StatusBar backgroundColor             = {Cons.logoColor2} barStyle = "light-content"></StatusBar>
+    return <GluestackUIProvider config={config}>
+        <StatusBar backgroundColor={Cons.logoColor2} barStyle="light-content"></StatusBar>
 
-        <View style={{
-            flex           : 1,
-            justifyContent : 'center',
-            alignItems     : 'center',
-            backgroundColor: "#FFFFFF"
-        }}>
-            <ScrollView
-                w                     = {Cons.sw1}
-                contentContainerStyle = {{ flexGrow: 1 }}
-                refreshControl        = {
-                    <RefreshControl
-                        refreshing = {refreshing}
-                        onRefresh  = {onRefresh}
-                        colors     = {[Cons.logoColor2, '#689F38']}
-                    />
-                }
-            >
-
-                <CusList dataTable = {dataTable.data}></CusList>
-
-            </ScrollView>
-
-        </View>
+        <TabView
+            navigationState={{ index, routes }}
+            renderScene={renderScene}
+            onIndexChange={setIndex}
+            initialLayout={{ width: Cons.sw1 }}
+            renderTabBar={renderTabBar}
+        />
     </GluestackUIProvider>
 }
 

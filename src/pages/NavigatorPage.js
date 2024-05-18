@@ -6,21 +6,24 @@ import { useEffect, useState } from "react";
 import HomePage from "./HomePage";
 import LoginPage from "./LoginPage";
 import OperationPage from "./Operations/Index";
+import PreventifPage from "./Preventif/Index";
 import ProfilePage from "./ProfilePage";
 import SplashPage from "./SplashPage";
-import PreventifPage from "./Preventif/Index";
+import SearchPreventifPage from "./Preventif/Search";
 
+import { Text } from "@gluestack-ui/themed";
 import { useDispatch, useSelector } from 'react-redux';
-import { getAppGaoUserLogin } from "../redux/actions/loginAction";
 import { Cons } from "../components/Cons";
+import { getAppGaoUserLogin } from "../redux/actions/loginAction";
+import { TouchableOpacity } from "react-native";
 
 const Stack = createNativeStackNavigator();
 
 const NavigatorPage = ({ }) => {
 
     const [isLoading, setIsLoading] = useState(true)
-    const appGaoUserLogin           = useSelector(state => state.login.getAppGaoUserLogin);
-    const dispatch                  = useDispatch();
+    const appGaoUserLogin = useSelector(state => state.login.getAppGaoUserLogin);
+    const dispatch = useDispatch();
 
     useEffect(() => {
         dispatch(getAppGaoUserLogin());
@@ -38,7 +41,6 @@ const NavigatorPage = ({ }) => {
     return <NavigationContainer>
         <Stack.Navigator
             screenOptions={{
-                  // headerShown   : false,
                 gestureEnabled: true,
             }}
         >
@@ -46,9 +48,9 @@ const NavigatorPage = ({ }) => {
                 <>
 
                     <Stack.Screen
-                        name      = "SignIn"
-                        component = {LoginPage}
-                        options   = {{
+                        name="SignIn"
+                        component={LoginPage}
+                        options={{
                             headerShown: false,
                         }}
                     />
@@ -57,32 +59,33 @@ const NavigatorPage = ({ }) => {
             ) : (
                 <>
                     <Stack.Screen
-                        name      = "Home"
-                        component = {HomePage}
-                        options   = {{
+                        name="Home"
+                        component={HomePage}
+                        options={{
                             headerShown: false,
                         }}
                     />
                     <Stack.Screen
-                        name      = "Operation"
-                        component = {OperationPage}
-                        options   = {{
+                        name="Operation"
+                        component={OperationPage}
+                        options={{
                             headerShown: false
                         }}
                     />
 
                     <Stack.Screen
-                        name      = "Profile"
-                        component = {ProfilePage}
-                        options   = {{
+                        name="Profile"
+                        component={ProfilePage}
+                        options={{
                             headerShown: false
                         }}
                     />
 
                     <Stack.Screen
-                        name      = "Preventif"
-                        component = {PreventifPage}
-                        options   = {{
+                        name="SearchPreventif"
+                        component={SearchPreventifPage}
+                        options={{
+                            title:null,
                             headerStyle: {
                                 backgroundColor: Cons.logoColor2,
                             },
@@ -90,14 +93,31 @@ const NavigatorPage = ({ }) => {
                                 color: 'white'
                             },
                             headerBackButtonMenuEnabled: true,
-                            headerSearchBarOptions     : {
-                                tintColor          : 'white',
-                                textColor          : 'white',
-                                headerIconColor    : 'white',
-                                onSearchButtonPress: () => { console.log('search finish') }
-                            },
                             headerTintColor: 'white',
                         }}
+                    />
+
+                    <Stack.Screen
+                        name="Preventif"
+                        component={PreventifPage}
+                        options={({ navigation }) => ({
+                            headerStyle: {
+                                backgroundColor: Cons.logoColor2,
+                            },
+                            headerTitleStyle: {
+                                color: 'white'
+                            },
+                            headerBackButtonMenuEnabled: true,
+
+                            headerRight: () => (
+                                <TouchableOpacity
+                                    onPress={() => { navigation.navigate('SearchPreventif') }}
+                                >
+                                    <Text color="white">Cari</Text>
+                                </TouchableOpacity>
+                            ),
+                            headerTintColor: 'white',
+                        })}
 
                     />
 

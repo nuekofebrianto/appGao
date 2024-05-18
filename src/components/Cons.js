@@ -17,7 +17,7 @@ export const Cons = {
   bgColor      : "#f6f6f6",
   textColor    : "#262626",
   
-  apiServer: "http://192.168.71.18:8000",
+  apiServer: "http://192.168.236.18:8000",
     // apiServer: "http://192.168.205.18:8000",
     // apiServer: "http://192.168.68.74:8000",
 
