@@ -1,28 +1,25 @@
-import { config } from "@gluestack-ui/config"
-import { GluestackUIProvider, RefreshControl, ScrollView, StatusBar, Text, View } from "@gluestack-ui/themed"
-import { useNavigation } from "@react-navigation/native"
+import { HStack, RefreshControl, ScrollView, Text, VStack, View } from "@gluestack-ui/themed"
 import React, { useEffect, useState } from "react"
+import { ActivityIndicator } from "react-native"
 import { useDispatch, useSelector } from "react-redux"
 import { Cons } from "../../components/Cons"
-import { dataTablePreventif } from "../../redux/actions/preventifAction"
-import CusList from "../../components/CusList"
-import { fetchData, clearData } from "../../redux/actions/dataAction"
-import { ActivityIndicator } from "react-native"
-import { VStack, HStack } from "@gluestack-ui/themed"
+import { fetchData } from "../../redux/actions/dataAction"
+import preventifReducer from "../../redux/reducers/preventifReducer"
 
 const FirstTab = () => {
 
-    // const datatable = useSelector(state => state.preventif.getResult);
-    const { data, loading, error, endReached, page } = useSelector((state) => state.dataReducer);
+    const path = '/api/preventif-wisma-report/datatable?entries=10';
+    const targetReducer = 'PREVENTIF';
+
+    const { data, loading, endReached, page } = useSelector((state) => state.preventifReducer);
 
     const [refreshing, setRefreshing] = useState(false);
     const dispatch = useDispatch();
 
-    const onRefresh = async ()  =>  {
+    const onRefresh = async () => {
         setRefreshing(true);
-        // dispatch(dataTablePreventif())
-        dispatch(fetchData(1));
-        
+        dispatch(fetchData(1, path, targetReducer));
+
         setTimeout(() => {
             setRefreshing(false);
         }, 2000);
@@ -33,13 +30,12 @@ const FirstTab = () => {
         const isNearBottom = layoutMeasurement.height + contentOffset.y >= contentSize.height - 20;
 
         if (isNearBottom && !loading && !endReached) {
-            dispatch(fetchData(page));
+            dispatch(fetchData(page, path, targetReducer));
         }
     };
 
     useEffect(() => {
-        // dispatch(dataTablePreventif())
-        dispatch(fetchData(1));
+        dispatch(fetchData(1, path, targetReducer));
     }, [dispatch])
 
     return <ScrollView
