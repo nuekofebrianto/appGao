@@ -9,6 +9,7 @@ import LottieView from "lottie-react-native"
 import { Pressable } from "@gluestack-ui/themed"
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome"
 import { useNavigation } from "@react-navigation/native"
+import { clearData } from "../../redux/actions/dataAction"
 
 const OperationPage = () => {
 
@@ -26,6 +27,7 @@ const OperationPage = () => {
 
     useEffect(() => {
         dispatch(activePageOperation())
+        dispatch(clearData())
     }, [dispatch])
 
     return     <GluestackUIProvider config = {config}>

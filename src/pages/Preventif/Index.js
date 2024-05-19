@@ -6,7 +6,8 @@ import { useDispatch } from "react-redux"
 import { Cons } from "../../components/Cons"
 import FirstTab from "./FirstTab"
 import SecondTab from "./SecondTab"
-import ThirdTab from "./ThirdTab"
+import { clearData } from "../../redux/actions/dataAction"
+import { useNavigation } from "@react-navigation/native"
 
 const FirstRoute = () => (
     <FirstTab />
@@ -14,10 +15,6 @@ const FirstRoute = () => (
 
 const SecondRoute = () => (
     <SecondTab />
-);
-
-const ThirdRoute = () => (
-    <ThirdTab />
 );
 
 const renderTabBar = props => (
@@ -35,10 +32,8 @@ const renderTabBar = props => (
 const getTabTextColor = (key) => {
     switch (key) {
         case 'first':
-            return Cons.logoColor1;
+            return Cons.textColor;
         case 'second':
-            return Cons.positiveColor;
-        case 'third':
             return Cons.logoColor2;
         default:
             return Cons.textColor;
@@ -50,19 +45,23 @@ const PreventifPage = () => {
     const [index, setIndex] = React.useState(0);
     const [routes] = React.useState([
         { key: 'first', title: 'Semua' },
-        { key: 'second', title: 'Complete' },
-        { key: 'third', title: 'Waiting Approval' },
+        { key: 'second', title: 'Waiting Approval' },
     ]);
 
     const renderScene = SceneMap({
         first: FirstRoute,
         second: SecondRoute,
-        third: ThirdRoute,
     });
 
     const dispatch = useDispatch();
+    const navigation = useNavigation();
 
     useEffect(() => {
+        const unsubscribe = navigation.addListener('beforeRemove', () => {
+            dispatch(clearData());
+        });
+
+        return unsubscribe;
     }, [dispatch])
 
     return <GluestackUIProvider config={config}>

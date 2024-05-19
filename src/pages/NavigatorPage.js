@@ -85,7 +85,7 @@ const NavigatorPage = ({ }) => {
                         name="SearchPreventif"
                         component={SearchPreventifPage}
                         options={{
-                            title:null,
+                            title: null,
                             headerStyle: {
                                 backgroundColor: Cons.logoColor2,
                             },

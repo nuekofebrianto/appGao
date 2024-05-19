@@ -1,12 +1,10 @@
-import { useEffect, useState } from "react"
 import { config } from "@gluestack-ui/config"
-import { View, Text, GluestackUIProvider, StatusBar, Button, ButtonText } from "@gluestack-ui/themed"
-import { Cons } from "../components/Cons"
-import { ScrollView, RefreshControl } from "@gluestack-ui/themed"
-import NavigationButton from "../components/NavigationButton"
+import { GluestackUIProvider, RefreshControl, ScrollView, StatusBar, View } from "@gluestack-ui/themed"
+import { useEffect, useState } from "react"
 import { useDispatch } from "react-redux"
+import { Cons } from "../components/Cons"
+import NavigationButton from "../components/NavigationButton"
 import { activePageHome } from "../redux/actions/globalAction"
-import { removeAppGaoUserLogin } from "../redux/actions/loginAction"
 
 const HomePage = () => {
 

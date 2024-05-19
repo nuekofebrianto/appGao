@@ -5,10 +5,7 @@ import PagerView from 'react-native-pager-view';
 import { TabView, SceneMap } from 'react-native-tab-view';
 import ViewPager from '@react-native-community/viewpager';
 
-const CusList = ({ dataTables }) => {
-
-    const dataTable = dataTables.data;
-    const currentPage = dataTables.current_pate;
+const CusListWaitingApproval = ({ dataTable }) => {
 
     if (!Array.isArray(dataTable)) {
         return <View>
@@ -71,4 +68,4 @@ const CusList = ({ dataTables }) => {
     );
 };
 
-export default CusList;
+export default CusListWaitingApproval;
