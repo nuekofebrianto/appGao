@@ -10,8 +10,6 @@ export const fetchData = (page, path, target) => async (dispatch) => {
         const res = response.data;
         const data = res.data;
 
-        console.log(data.length)
-
         if (!res || typeof res !== 'object') {
             throw new Error('Invalid JSON response');
         }
