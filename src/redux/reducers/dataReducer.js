@@ -14,6 +14,7 @@ const dataReducer = (state = initialState, action) => {
                 data: action.payload.data,
                 loading: false,
                 page: 2,
+                endReached: false,
             };
         case 'FETCH_SUCCESS':
             return {
@@ -21,6 +22,7 @@ const dataReducer = (state = initialState, action) => {
                 data: [...state.data, ...action.payload.data],
                 loading: false,
                 page: action.payload.page + 1,
+                endReached: false,
             };
         case 'FETCH_ERROR':
             return {

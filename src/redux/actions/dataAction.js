@@ -1,3 +1,4 @@
+import { err } from "react-native-svg/lib/typescript/xml";
 import { Cons } from "../../components/Cons";
 
 export const fetchData = (page) => async (dispatch) => {
@@ -25,6 +26,7 @@ export const fetchData = (page) => async (dispatch) => {
             });
         }
     } catch (error) {
+        console.log(error)
         dispatch({
             type: 'FETCH_ERROR',
             payload: error,

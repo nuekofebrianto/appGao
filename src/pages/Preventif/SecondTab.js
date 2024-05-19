@@ -23,8 +23,7 @@ const SecondTab = () => {
         setRefreshing(true);
         // dispatch(dataTablePreventifWaitingApproval())
 
-        console.log('log1 ',datatable.data)
-        console.log('log2 ',datatableWaitingApproval.data)
+        console.log('log2 ',datatableWaitingApproval.data.length)
 
         setTimeout(() => {
             setRefreshing(false);
