@@ -6,28 +6,25 @@ import { useDispatch, useSelector } from "react-redux"
 import { Cons } from "../../components/Cons"
 import { dataTablePreventif } from "../../redux/actions/preventifAction"
 import CusList from "../../components/CusList"
-import { fetchData,clearData } from "../../redux/actions/dataAction"
+import { fetchData, clearData } from "../../redux/actions/dataAction"
 import { ActivityIndicator } from "react-native"
 import { VStack, HStack } from "@gluestack-ui/themed"
 
 const FirstTab = () => {
 
     // const datatable = useSelector(state => state.preventif.getResult);
-    const { data, loading, endReached, page } = useSelector((state) => state.dataReducer);
+    const { data, loading, error, endReached, page } = useSelector((state) => state.dataReducer);
 
     const [refreshing, setRefreshing] = useState(false);
-    // const navigation = useNavigation();
     const dispatch = useDispatch();
 
-    const onRefresh = () => {
+    const onRefresh = async ()  =>  {
         setRefreshing(true);
         // dispatch(dataTablePreventif())
-        dispatch(clearData());
-        dispatch(fetchData(page));
-
+        dispatch(fetchData(1));
+        
         setTimeout(() => {
             setRefreshing(false);
-            console.log(data.length)
         }, 2000);
     };
 
@@ -42,8 +39,7 @@ const FirstTab = () => {
 
     useEffect(() => {
         // dispatch(dataTablePreventif())
-        dispatch(fetchData(page));
-
+        dispatch(fetchData(1));
     }, [dispatch])
 
     return <ScrollView
@@ -59,7 +55,7 @@ const FirstTab = () => {
             />
         }
     >
-        <View style={{ flex: 1, justifyContent: 'start', alignItems: 'center' ,paddingTop:10,paddingBottom:20}}>
+        <View style={{ flex: 1, justifyContent: 'start', alignItems: 'center', paddingTop: 10, paddingBottom: 40 }}>
             {data.map((item, index) => (
                 <VStack key={index} style={{
                     borderWidth: 0.5,
@@ -98,7 +94,7 @@ const FirstTab = () => {
 
             ))}
             {loading && <ActivityIndicator size="large" color={Cons.logoColor2} />}
-            {endReached && <Text >No more data</Text>}
+            {endReached && <Text style={{ marginTop: 10 }}>No more data</Text>}
         </View>
     </ScrollView>
 }

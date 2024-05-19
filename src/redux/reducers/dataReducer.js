@@ -8,12 +8,19 @@ const initialState = {
 
 const dataReducer = (state = initialState, action) => {
     switch (action.type) {
+        case 'FIRST_FETCH_SUCCESS':
+            return {
+                ...state,
+                data: action.payload.data,
+                loading: false,
+                page: 2,
+            };
         case 'FETCH_SUCCESS':
             return {
                 ...state,
                 data: [...state.data, ...action.payload.data],
                 loading: false,
-                page: action.payload.page,
+                page: action.payload.page + 1,
             };
         case 'FETCH_ERROR':
             return {
@@ -24,8 +31,8 @@ const dataReducer = (state = initialState, action) => {
         case 'END_REACHED':
             return {
                 ...state,
-                page: action.payload.page,
                 endReached: true,
+                loading: false,
             };
         case 'SET_LOADING':
             return {
