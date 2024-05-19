@@ -58,7 +58,8 @@ const PreventifPage = () => {
 
     useEffect(() => {
         const unsubscribe = navigation.addListener('beforeRemove', () => {
-            dispatch(clearData());
+            dispatch(clearData('PREVENTIF'));
+            dispatch(clearData('PREVENTIF_WAITING_APPROVAL'));
         });
 
         return unsubscribe;

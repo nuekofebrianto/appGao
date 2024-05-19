@@ -4,6 +4,7 @@ import loginReducer from "./loginReducer";
 import globalReducer from "./globalReducer";
 import preventifReducer from "./preventifReducer";
 import preventifWaitingApprovalReducer from "./preventifWaitingApprovalReducer";
+import searchReducer from "./searchReducer";
 
 export const rootReducer = combineReducers({
     user                           : userReducer,
@@ -11,4 +12,5 @@ export const rootReducer = combineReducers({
     global                         : globalReducer,
     preventifReducer               : preventifReducer,
     preventifWaitingApprovalReducer: preventifWaitingApprovalReducer,
+    searchReducer                  : searchReducer,
 });

@@ -16,6 +16,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Cons } from "../components/Cons";
 import { getAppGaoUserLogin } from "../redux/actions/loginAction";
 import { TouchableOpacity } from "react-native";
+import CusHeader from "../components/CusHeader";
 
 const Stack = createNativeStackNavigator();
 
@@ -84,7 +85,7 @@ const NavigatorPage = ({ }) => {
                     <Stack.Screen
                         name="SearchPreventif"
                         component={SearchPreventifPage}
-                        options={{
+                        options={({ navigation }) => ({
                             title: null,
                             headerStyle: {
                                 backgroundColor: Cons.logoColor2,
@@ -94,7 +95,8 @@ const NavigatorPage = ({ }) => {
                             },
                             headerBackButtonMenuEnabled: true,
                             headerTintColor: 'white',
-                        }}
+                            headerTitle: () => <CusHeader endPoint={'preventif-wisma-report/datatable'} />
+                        })}
                     />
 
                     <Stack.Screen

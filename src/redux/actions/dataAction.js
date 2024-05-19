@@ -3,20 +3,20 @@ import { Cons } from "../../components/Cons";
 import axios from "axios";
 
 export const fetchData = (page, path, target) => async (dispatch) => {
-    dispatch({ type: 'SET_LOADING', payload: true });
+    dispatch({ type: 'SET_LOADING' + target, payload: true });
     try {
-
         const response = await axios.get(Cons.apiServer + path + `&page=${page}`);
 
         const res = response.data;
         const data = res.data;
+
+        console.log(data.length)
 
         if (!res || typeof res !== 'object') {
             throw new Error('Invalid JSON response');
         }
 
         if (data.length > 0) {
-            console.log(target, ' : fetch success')
             if (res.current_page == 1) {
                 dispatch({
                     type: 'FIRST_FETCH_SUCCESS' + target,
@@ -45,8 +45,14 @@ export const fetchData = (page, path, target) => async (dispatch) => {
     }
 };
 
-export const clearData = () => {
+export const clearData = (target) => {
     return {
-        type: 'CLEAR_DATA',
+        type: 'CLEAR_DATA' + target,
+    };
+};
+
+export const searchData = (target) => {
+    return {
+        type: 'SET_SEARCH' + target,
     };
 };
