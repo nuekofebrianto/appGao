@@ -3,6 +3,7 @@ import { Cons } from "../../components/Cons";
 import axios from "axios";
 
 export const fetchData = (page, path, target) => async (dispatch) => {
+
     dispatch({ type: 'SET_LOADING' + target, payload: true });
     try {
         const response = await axios.get(Cons.apiServer + path + `&page=${page}`);
@@ -52,5 +53,18 @@ export const clearData = (target) => {
 export const searchData = (target) => {
     return {
         type: 'SET_SEARCH' + target,
+    };
+};
+
+export const selectItem = (items, target) => {
+    return {
+        type: 'SELECT_ITEM' + target,
+        payload: items,
+    };
+};
+
+export const clearSelectedItem = (target) => {
+    return {
+        type: 'CLEAR_SELECTED_ITEM' + target,
     };
 };

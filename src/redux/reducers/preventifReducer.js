@@ -1,9 +1,12 @@
+import { selectItem } from "../actions/dataAction";
+
 const initialState = {
     data: [],
     loading: false,
     error: null,
     page: 1,
     endReached: false,
+    selectedItem: null,
 };
 
 const reducerName = 'PREVENTIF';
@@ -43,6 +46,11 @@ const preventifReducer = (state = initialState, action) => {
                 ...state,
                 loading: action.payload,
             };
+        case 'SELECT_ITEM' + reducerName:
+            return {
+                ...state,
+                selectedItem: action.payload,
+            };
         case 'CLEAR_DATA':
             return {
                 ...state,
@@ -51,6 +59,11 @@ const preventifReducer = (state = initialState, action) => {
                 error: null,
                 page: 1,
                 endReached: false,
+            };
+        case 'CLEAR_SELECTED_ITEM':
+            return {
+                ...state,
+                selectItem: null
             };
         default:
             return state;

@@ -9,18 +9,19 @@ import preventifWaitingApprovalReducer from "../../redux/reducers/preventifWaiti
 
 const SecondTab = () => {
 
-    const path = '/api/preventif-wisma-report/datatable?entries=10&filter_columns=status_tiket&filter_keys=WAITING_APPROVAL';
-    const targetReducer = 'PREVENTIF_WAITING_APPROVAL';
-
+    const appGaoUserLogin = useSelector((state) => state.login.getAppGaoUserLogin);
     const { data, loading, error, endReached, page } = useSelector(state => state.preventifWaitingApprovalReducer);
+
+    const path = '/api/preventif-wisma/datatable-gao?entries=10&filter_columns=status_tiket&filter_keys=WAITING_APPROVAL&user_mitra_id=' + appGaoUserLogin.user_mitra.id;
+    const targetReducer = 'PREVENTIF_WAITING_APPROVAL';
 
     const [refreshing, setRefreshing] = useState(false);
     const dispatch = useDispatch();
 
-    const onRefresh = async ()  =>  {
+    const onRefresh = async () => {
         setRefreshing(true);
-        dispatch(fetchData(1,path,targetReducer));
-        
+        dispatch(fetchData(1, path, targetReducer));
+
         setTimeout(() => {
             setRefreshing(false);
         }, 2000);
@@ -31,12 +32,12 @@ const SecondTab = () => {
         const isNearBottom = layoutMeasurement.height + contentOffset.y >= contentSize.height - 20;
 
         if (isNearBottom && !loading && !endReached) {
-            dispatch(fetchData(page,path,targetReducer));
+            dispatch(fetchData(page, path, targetReducer));
         }
     };
 
     useEffect(() => {
-        dispatch(fetchData(1,path,targetReducer));
+        dispatch(fetchData(1, path, targetReducer));
     }, [dispatch])
 
     return <ScrollView
@@ -64,7 +65,7 @@ const SecondTab = () => {
                 }}>
                     <HStack justifyContent='space-between'>
                         <Text style={{ fontSize: 16, fontWeight: 800, }}>{item.nomor}</Text>
-                        {item.status_tike === 'DRAFT' ? (
+                        {item.status_tiket === 'DRAFT' ? (
                             <View style={{ backgroundColor: Cons.textColor, padding: 5, borderRadius: 5, }}>
                                 <Text style={{ fontSize: 12, color: 'white' }}>DRAFT</Text>
                             </View>

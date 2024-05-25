@@ -3,20 +3,26 @@ import React, { useEffect, useState } from "react"
 import { ActivityIndicator } from "react-native"
 import { useDispatch, useSelector } from "react-redux"
 import { Cons } from "../../components/Cons"
-import { fetchData } from "../../redux/actions/dataAction"
-import preventifReducer from "../../redux/reducers/preventifReducer"
+import { fetchData, selectItem } from "../../redux/actions/dataAction"
 import { useNavigation } from "@react-navigation/native"
 
 const FirstTab = () => {
 
-    const path = '/api/preventif-wisma-report/datatable?entries=10';
-    const targetReducer = 'PREVENTIF';
-
+    const appGaoUserLogin = useSelector((state) => state.login.getAppGaoUserLogin);
     const { data, loading, endReached, page } = useSelector((state) => state.preventifReducer);
 
+    const path = '/api/preventif-wisma/datatable-gao?entries=10&user_mitra_id=' + appGaoUserLogin.user_mitra.id;
+    const targetReducer = 'PREVENTIF';
+
     const [refreshing, setRefreshing] = useState(false);
+
     const dispatch = useDispatch();
     const navigation = useNavigation();
+
+    const goToDetail = (item) => {
+        dispatch(selectItem(item, targetReducer));
+        navigation.navigate('DetailPreventif');
+    };
 
     const onRefresh = async () => {
         setRefreshing(true);
@@ -53,10 +59,13 @@ const FirstTab = () => {
             />
         }
     >
+
         <View style={{ flex: 1, justifyContent: 'start', alignItems: 'center', paddingTop: 10, paddingBottom: 40, }}>
             {data.map((item, index) => (
                 <Pressable key={index}
-                    onPress={() => { navigation.navigate('DetailPreventif') }}
+                    onPress={() => {
+                        goToDetail(item)
+                    }}
                 >
                     <VStack style={{
                         borderWidth: 0.5,
@@ -65,11 +74,12 @@ const FirstTab = () => {
                         width: Cons.sw1 - 20,
                         padding: 10,
                         marginBottom: 10,
-                        backgroundColor:'white'
+                        backgroundColor: 'white'
                     }}>
                         <HStack justifyContent='space-between'>
                             <Text style={{ fontSize: 16, fontWeight: 800, }}>{item.nomor}</Text>
-                            {item.status_tike === 'DRAFT' ? (
+
+                            {item.status_tiket === 'DRAFT' ? (
                                 <View style={{ backgroundColor: Cons.textColor, padding: 5, borderRadius: 5, }}>
                                     <Text style={{ fontSize: 12, color: 'white' }}>DRAFT</Text>
                                 </View>

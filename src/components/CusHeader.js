@@ -3,19 +3,20 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { useSelector } from 'react-redux';
 import { Cons } from './Cons';
-import { searchData, fetchData } from '../redux/actions/dataAction';
+import { searchData, fetchData, clearData } from '../redux/actions/dataAction';
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 
 const CusHeader = ({ endPoint }) => {
 
     const targetReducer = 'SEARCH';
-    const path = '/api/' + endPoint + '?entries=100&search_columns=nomor&search_columns=nomor&search_key=';
+    const path = '/api/' + endPoint + '&entries=100&search_columns=nomor&search_key=';
     const [searchValue, setSearchValue] = useState('')
 
     const dispatch = useDispatch()
 
     const handleSearch = () => {
+        dispatch(clearData(targetReducer));
         dispatch(fetchData(1, path + searchValue, targetReducer));
     };
 

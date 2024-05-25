@@ -19,7 +19,7 @@ const MessagingService = () => {
 
     if (requestUserPermission()) {
         messaging().getToken().then(token => {
-            // console.log(token)
+            console.log(token)
             if (token != appGaoToken._j) {
                 StorageService.setItem('appGaoToken', token)
             }
