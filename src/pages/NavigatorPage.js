@@ -10,6 +10,7 @@ import PreventifPage from "./Preventif/Index";
 import ProfilePage from "./ProfilePage";
 import SplashPage from "./SplashPage";
 import SearchPreventifPage from "./Preventif/Search";
+import DetailPreventifPage from "./Preventif/Detail";
 
 import { Text } from "@gluestack-ui/themed";
 import { useDispatch, useSelector } from 'react-redux';
@@ -70,7 +71,15 @@ const NavigatorPage = ({ }) => {
                         name="Operation"
                         component={OperationPage}
                         options={{
-                            headerShown: false
+                            title: 'Operation',
+                            headerStyle: {
+                                backgroundColor: Cons.logoColor2,
+                            },
+                            headerTitleStyle: {
+                                color: 'white'
+                            },
+                            headerBackButtonMenuEnabled: true,
+                            headerTintColor: 'white',
                         }}
                     />
 
@@ -96,6 +105,23 @@ const NavigatorPage = ({ }) => {
                             headerBackButtonMenuEnabled: true,
                             headerTintColor: 'white',
                             headerTitle: () => <CusHeader endPoint={'preventif-wisma-report/datatable'} />
+                        })}
+                    />
+
+                    <Stack.Screen
+                        name="DetailPreventif"
+                        component={DetailPreventifPage}
+                        options={({ navigation }) => ({
+                            title: null,
+                            headerStyle: {
+                                backgroundColor: Cons.logoColor2,
+                            },
+                            headerTitleStyle: {
+                                color: 'white'
+                            },
+                            headerBackButtonMenuEnabled: true,
+                            headerTintColor: 'white',
+
                         })}
                     />
 
