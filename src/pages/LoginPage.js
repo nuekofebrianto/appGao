@@ -9,13 +9,14 @@ import axios from "axios";
 import { useState } from "react";
 import { StorageService } from "../services/StorageService";
 import { getAppGaoUserLogin } from "../redux/actions/loginAction";
-import {  useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 
 const LoginPage = ({ navigation }) => {
 
-    const [username, setUsername]     = useState('')
-    const [password, setPassword]     = useState('')
+    const [username, setUsername] = useState('')
+    const [password, setPassword] = useState('')
     const [isSpinning, setIsSpinning] = useState(false)
+    const appGaoToken = StorageService.getItem('appGaoToken')
     const dispatch = useDispatch();
 
     const onPressLogin = () => {
@@ -25,7 +26,8 @@ const LoginPage = ({ navigation }) => {
             Cons.apiServer + '/api/sign-in-gao',
             {
                 username: username,
-                password: password
+                password: password,
+                device_token: appGaoToken._j,
             }
         )
             .then(response => {
@@ -35,67 +37,67 @@ const LoginPage = ({ navigation }) => {
                 setIsSpinning(false)
             }).catch(error => {
                 console.log(error.response.data.message)
-                Alert.alert('Failed',error.response.data.message);
+                Alert.alert('Failed', error.response.data.message);
                 setIsSpinning(false)
             })
-            // .finally(() => {
-            //     setIsSpinning(false)
-            // })
+        // .finally(() => {
+        //     setIsSpinning(false)
+        // })
 
     }
 
-    return <GluestackUIProvider config = {config}>
-    <View  style                       = {{
-            flex           : 1,
+    return <GluestackUIProvider config={config}>
+        <View style={{
+            flex: 1,
             backgroundColor: "white",
-            width          : Cons.sw1,
-            height         : Cons.sh1,
-            padding        : 10,
-            paddingTop     : Cons.sh3,
-            alignContent   : "center",
-            alignItems     : "center"
+            width: Cons.sw1,
+            height: Cons.sh1,
+            padding: 10,
+            paddingTop: Cons.sh3,
+            alignContent: "center",
+            alignItems: "center"
         }}>
-            <StatusBar backgroundColor = {Cons.logoColor2} barStyle = "light-content"></StatusBar>
+            <StatusBar backgroundColor={Cons.logoColor2} barStyle="light-content"></StatusBar>
 
             <LottieView
-                source = {require('../assets/lotties/dtuLottie.json')}
+                source={require('../assets/lotties/dtuLottie.json')}
                 autoPlay
-                loop  = {false}
-                style = {{ width: 200, height: 200, position: "absolute", top: 50, }}
+                loop={false}
+                style={{ width: 200, height: 200, position: "absolute", top: 50, }}
             />
 
             <KeyboardAvoidingView
-                behavior = "position">
+                behavior="position">
 
-                <View style = {{ width: Cons.sw1, padding: 20, backgroundColor: "white" }}>
-                <Text style = {{
-                        fontSize    : 30,
+                <View style={{ width: Cons.sw1, padding: 20, backgroundColor: "white" }}>
+                    <Text style={{
+                        fontSize: 30,
                         marginBottom: 30,
-                        alignSelf   : 'center',
-                        color       : 'black'
+                        alignSelf: 'center',
+                        color: 'black'
                     }}>Dapensi Trio Usaha</Text>
 
-                    <Text style = {{ fontSize: 20, color: "black", fontFamily: "sigmar", marginBottom: 10 }}>Login to Your Account</Text>
+                    <Text style={{ fontSize: 20, color: "black", fontFamily: "sigmar", marginBottom: 10 }}>Login to Your Account</Text>
 
                     <CusFormControl
-                        placeholder  = {"Username atau Email"}
-                        w            = "100%"
-                        value        = {username}
-                        onChangeText = {setUsername}
+                        placeholder={"Username atau Email"}
+                        w="100%"
+                        value={username}
+                        onChangeText={setUsername}
 
                     ></CusFormControl>
                     <CusFormControl
-                        placeholder  = {"Password"}
-                        w            = "100%"
-                        type         = {"password"}
-                        onChangeText = {setPassword}
-                        value        = {password}
+                        placeholder={"Password"}
+                        w="100%"
+                        type={"password"}
+                        onChangeText={setPassword}
+                        value={password}
                     ></CusFormControl>
 
                     <Button
-                        backgroundColor = {Cons.logoColor2}
-                        marginTop       = {20}
-                        onPress         = {onPressLogin}
+                        backgroundColor={Cons.logoColor2}
+                        marginTop={20}
+                        onPress={onPressLogin}
                     >
                         <ButtonText>{isSpinning ? <ActivityIndicator color={"white"} /> : 'Masuk'}</ButtonText>
                     </Button>

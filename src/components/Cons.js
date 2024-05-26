@@ -19,7 +19,7 @@ export const Cons = {
   
   apiServer: "http://192.168.75.18:8000",
     // apiServer: "http://192.168.205.18:8000",
-    // apiServer: "http://192.168.68.74:8000",
+    // apiServer: "http://sso.simpledev.id",
 
   logoColor1: "#393186",
   logoColor2: "#E62931",
