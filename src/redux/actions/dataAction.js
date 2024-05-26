@@ -17,7 +17,7 @@ export const fetchData = (page, path, target) => async (dispatch) => {
         const res = await response.data;
         const datas = await res.data;
 
-        if (datas.length > 0) {
+        if (Array.isArray(res.data)) {
             if (res.current_page == 1) {
                 dispatch({
                     type: 'FIRST_FETCH_SUCCESS' + target,
@@ -37,21 +37,14 @@ export const fetchData = (page, path, target) => async (dispatch) => {
 
     } catch (error) {
         if (error.response) {
-            // Server responded with a status other than 200 range
             console.log(target, 'Error Data:', error.response.data);
             console.log(target, 'Error Status:', error.response.status);
             console.log(target, 'Error Headers:', error.response.headers);
         } else if (error.request) {
-            // Request was made but no response received
             console.log(target, 'Error Request:', error.request);
         } else {
-            // Something else happened in setting up the request
             console.log(target, 'Error Message:', error.message);
         }
-
-        console.log(target, ' url = ', Cons.apiServer + path + `&page=${page}`)
-        console.log(target, ' status = ', response.status)
-        console.log(target, ' length= ', response.data.data.length)
 
         dispatch({
             type: 'FETCH_ERROR' + target,
@@ -81,10 +74,6 @@ export const approveData = (path, id, target) => async (dispatch) => {
         });
         const res = await response.data;
 
-        console.log('APPROVE')
-        console.log('status = ', response.status)
-        console.log('data = ', res.nomor)
-
         dispatch({
             type: 'APPROVE' + 'PREVENTIF',
             payload: { id: id, data: res },
@@ -102,15 +91,12 @@ export const approveData = (path, id, target) => async (dispatch) => {
 
     } catch (error) {
         if (error.response) {
-            // Server responded with a status other than 200 range
             console.log(target, 'Error Data:', error.response.data);
             console.log(target, 'Error Status:', error.response.status);
             console.log(target, 'Error Headers:', error.response.headers);
         } else if (error.request) {
-            // Request was made but no response received
             console.log(target, 'Error Request:', error.request);
         } else {
-            // Something else happened in setting up the request
             console.log(target, 'Error Message:', error.message);
         }
         dispatch({
