@@ -1,15 +1,14 @@
-import { config } from "@gluestack-ui/config"
-import { GluestackUIProvider, HStack, StatusBar, Text, VStack, View } from "@gluestack-ui/themed"
-import { useNavigation } from "@react-navigation/native"
-import React, { useEffect } from "react"
-import { useDispatch, useSelector } from "react-redux"
-import { Cons } from "../../components/Cons"
-import { clearSelectedItem } from "../../redux/actions/dataAction"
-import { faIcon } from "../../components/CusIcon"
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome"
-import { ScrollView } from "@gluestack-ui/themed"
-import { TouchableOpacity } from "react-native"
-import { Divider } from "@gluestack-ui/themed"
+import { config } from "@gluestack-ui/config"
+import { GluestackUIProvider, HStack, ScrollView, StatusBar, Text, VStack, View } from "@gluestack-ui/themed"
+import { useNavigation, useRoute } from "@react-navigation/native"
+import React, { useEffect, useState } from "react"
+import { ActivityIndicator, TouchableOpacity } from "react-native"
+import { useDispatch } from "react-redux"
+import { Cons } from "../../components/Cons"
+import { approveData } from "../../redux/actions/dataAction"
+import { useSelector } from "react-redux"
+
 import {
     Actionsheet, ActionsheetBackdrop, ActionsheetContent, ActionsheetDragIndicator,
     ActionsheetDragIndicatorWrapper, ActionsheetItem, ActionsheetItemText
@@ -17,21 +16,27 @@ import {
 
 const DetailPreventifPage = () => {
 
-    const selectedItem = useSelector((state) => state.preventifReducer.selectedItem);
-    const preventifWismaItems = selectedItem.preventif_wisma_item;
     const navigation = useNavigation();
     const dispatch = useDispatch();
 
-    const [showActionsheet, setShowActionsheet] = React.useState(false)
-    const handleClose = () => setShowActionsheet(!showActionsheet)
+    const route = useRoute();
+    const { selectedItem } = route.params;
 
-    if (!selectedItem) {
-        return (
-            <View>
-                <Text>No item selected</Text>
-            </View>
-        );
+    const [isLoading, setIsLoading] = useState(true);
+    const [showActionsheet, setShowActionsheet] = React.useState(false)
+
+    const preventifWismaItems = selectedItem.preventif_wisma_item;
+    const appGaoUserLogin = useSelector((state) => state.login.getAppGaoUserLogin);
+
+    const path = '/api/preventif-wisma/approve?user_mitra_id='+appGaoUserLogin.user_mitra.id;
+    const targetReducer = 'PREVENTIF';
+
+    const handleApprove = () => {
+        dispatch(approveData(path, selectedItem.id, targetReducer));
+        navigation.goBack();
     }
+
+    const handleClose = () => setShowActionsheet(!showActionsheet)
 
     const renderCards = () => {
         let groups = {};
@@ -58,7 +63,10 @@ const DetailPreventifPage = () => {
                 {groups[groupId].map((item, index) => (
                     <VStack key={index}>
                         <HStack style={{ justifyContent: 'space-between' }}>
-                            <Text style={{ maxWidth: Cons.sw2 }}>{item.checklist.nama}</Text>
+                            <HStack style={{ justifyContent: 'flex-start' }}>
+                                <Text style={{ width: 20 }}>{index + 1}</Text>
+                                <Text style={{ maxWidth: Cons.sw2 }}>{item.checklist.nama}</Text>
+                            </HStack>
                             {item.kondisi === 'baik' ? (
                                 <Text style={{ color: Cons.primaryColor, fontSize: 20, }}>
                                     <FontAwesomeIcon icon={"check"} size={20} color={Cons.primaryColor} />
@@ -82,26 +90,52 @@ const DetailPreventifPage = () => {
     };
 
     useEffect(() => {
-        const unsubscribe = navigation.addListener('beforeRemove', () => {
-            dispatch(clearSelectedItem('PREVENTIF'));
-            dispatch(clearSelectedItem('PREVENTIF_WAITING_APPROVAL'));
-        });
-
         navigation.setOptions({
             title: 'Detail Preventif Wisma ',
             headerRight: () => (
-                <View>{selectedItem.status_tiket == 'WAITING_APPROVAL' ? <TouchableOpacity
-                    onPress={handleClose}
-                >
-                    <Text color="white">Approve</Text>
-                </TouchableOpacity> : ''}</View>
+                <View>
+                    {selectedItem.status_tiket == 'WAITING_APPROVAL' ?
+                        <TouchableOpacity
+                            style={{
+                                backgroundColor: 'white',
+                                padding: 10,
+                                marginLeft: 10,
+                                borderRadius: 5,
+                            }}
+                            onPress={handleClose}
+                        >
+                            <Text color={Cons.primaryColor}>Approve</Text>
+                        </TouchableOpacity>
+                        :
+                        <TouchableOpacity
+                            style={{
+                                backgroundColor: 'white',
+                                padding: 10,
+                                marginLeft: 10,
+                                borderRadius: 5,
+                            }}
+                            onPress={handleClose}
+                        >
+                            <Text color={Cons.primaryColor}>Approve</Text>
+                        </TouchableOpacity>}
+                </View>
 
             ),
         });
 
-        return unsubscribe;
+        setTimeout(() => {
+            setIsLoading(false);
+        }, 1000);
 
     }, [dispatch])
+
+    if (isLoading) {
+        return (
+            <View h={Cons.sh1} w={Cons.sw1} justifyContent="center" alignContent="center">
+                <ActivityIndicator size="large" color={Cons.logoColor2} />
+            </View>
+        );
+    }
 
     return <GluestackUIProvider config={config}>
         <StatusBar backgroundColor={Cons.logoColor2} barStyle="light-content"></StatusBar>
@@ -111,7 +145,7 @@ const DetailPreventifPage = () => {
                 <ActionsheetDragIndicatorWrapper>
                     <ActionsheetDragIndicator />
                 </ActionsheetDragIndicatorWrapper>
-                <ActionsheetItem onPress={handleClose} justifyContent="center" marginBottom={20}>
+                <ActionsheetItem onPress={handleApprove} justifyContent="center" marginBottom={20}>
                     <ActionsheetItemText style={{ color: Cons.primaryColor }}>Approve</ActionsheetItemText>
                 </ActionsheetItem>
                 <ActionsheetItem onPress={handleClose} justifyContent="center">
@@ -119,6 +153,7 @@ const DetailPreventifPage = () => {
                 </ActionsheetItem>
             </ActionsheetContent>
         </Actionsheet>
+
         <ScrollView
             w={Cons.sw1}
             contentContainerStyle={{ flexGrow: 1 }}

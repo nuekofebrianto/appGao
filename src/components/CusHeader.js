@@ -10,14 +10,17 @@ import { useEffect } from 'react';
 const CusHeader = ({ endPoint }) => {
 
     const targetReducer = 'SEARCH';
-    const path = '/api/' + endPoint + '&entries=100&search_columns=nomor&search_key=';
+    const path = endPoint + '&entries=100';
     const [searchValue, setSearchValue] = useState('')
 
     const dispatch = useDispatch()
 
     const handleSearch = () => {
-        dispatch(clearData(targetReducer));
-        dispatch(fetchData(1, path + searchValue, targetReducer));
+        if (searchValue !=''){
+            dispatch(fetchData(1, path + '&search_columns=nomor&search_key='+searchValue, targetReducer));
+        }else{
+            dispatch(fetchData(1, path , targetReducer));
+        }
     };
 
     useEffect(() => {

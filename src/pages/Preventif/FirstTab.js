@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react"
 import { ActivityIndicator } from "react-native"
 import { useDispatch, useSelector } from "react-redux"
 import { Cons } from "../../components/Cons"
-import { fetchData, selectItem } from "../../redux/actions/dataAction"
+import { fetchData } from "../../redux/actions/dataAction"
 import { useNavigation } from "@react-navigation/native"
 
 const FirstTab = () => {
@@ -11,7 +11,7 @@ const FirstTab = () => {
     const appGaoUserLogin = useSelector((state) => state.login.getAppGaoUserLogin);
     const { data, loading, endReached, page } = useSelector((state) => state.preventifReducer);
 
-    const path = '/api/preventif-wisma/datatable-gao?entries=10&user_mitra_id=' + appGaoUserLogin.user_mitra.id;
+    const path = '/api/preventif-wisma/datatable?entries=10&user_mitra_id=' + appGaoUserLogin.user_mitra.id;
     const targetReducer = 'PREVENTIF';
 
     const [refreshing, setRefreshing] = useState(false);
@@ -20,8 +20,7 @@ const FirstTab = () => {
     const navigation = useNavigation();
 
     const goToDetail = (item) => {
-        dispatch(selectItem(item, targetReducer));
-        navigation.navigate('DetailPreventif');
+        navigation.navigate('DetailPreventif', { selectedItem: item });
     };
 
     const onRefresh = async () => {

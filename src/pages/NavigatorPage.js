@@ -104,7 +104,7 @@ const NavigatorPage = ({ }) => {
                             },
                             headerBackButtonMenuEnabled: true,
                             headerTintColor: 'white',
-                            headerTitle: () => <CusHeader endPoint={'preventif-wisma/datatable-gao?user_mitra_id=' + appGaoUserLogin.user_mitra.id} />
+                            headerTitle: () => <CusHeader endPoint={'/api/preventif-wisma/datatable?user_mitra_id=' + appGaoUserLogin.user_mitra.id} />
                         })}
                     />
 
@@ -129,6 +129,7 @@ const NavigatorPage = ({ }) => {
                         name="Preventif"
                         component={PreventifPage}
                         options={({ navigation }) => ({
+                            title:"Preventif Wisma",
                             headerStyle: {
                                 backgroundColor: Cons.logoColor2,
                             },

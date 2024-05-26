@@ -38,6 +38,20 @@ const preventifWaitingApprovalReducer = (state = initialStates, action) => {
                 endReached: true,
                 loading: false,
             };
+        case 'APPROVE' + reducerName:
+            return {
+                ...state,
+                data: state.data.map(item =>
+                    item.id === action.payload.id
+                        ? { ...item, ...action.payload.data }
+                        : item
+                ),
+            };
+        case 'REMOVE' + reducerName:
+            return {
+                ...state,
+                data: state.data.filter(item => item.id !== action.payload.id)
+            };
         case 'SET_LOADING' + reducerName:
             return {
                 ...state,

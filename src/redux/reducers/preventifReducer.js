@@ -46,10 +46,14 @@ const preventifReducer = (state = initialState, action) => {
                 ...state,
                 loading: action.payload,
             };
-        case 'SELECT_ITEM' + reducerName:
+        case 'APPROVE' + reducerName:
             return {
                 ...state,
-                selectedItem: action.payload,
+                data: state.data.map(item =>
+                    item.id === action.payload.id
+                        ? { ...item, ...action.payload.data }
+                        : item
+                ),
             };
         case 'CLEAR_DATA':
             return {
@@ -59,11 +63,6 @@ const preventifReducer = (state = initialState, action) => {
                 error: null,
                 page: 1,
                 endReached: false,
-            };
-        case 'CLEAR_SELECTED_ITEM':
-            return {
-                ...state,
-                selectItem: null
             };
         default:
             return state;

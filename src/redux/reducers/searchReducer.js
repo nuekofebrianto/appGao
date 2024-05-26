@@ -16,18 +16,11 @@ const searchReducer = (state = initialState, action) => {
                 ...state,
                 data: action.payload.data,
                 loading: false,
-                page: 2,
-                endReached: false,
-            };
-        case 'FETCH_SUCCESS' + reducerName:
-            return {
-                ...state,
-                data: [...state.data, ...action.payload.data],
-                loading: false,
-                page: action.payload.page + 1,
+                page: 1,
                 endReached: false,
             };
         case 'FETCH_ERROR' + reducerName:
+            console.log('asdasd')
             return {
                 ...state,
                 error: action.payload,
