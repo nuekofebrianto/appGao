@@ -46,113 +46,105 @@ const NavigatorPage = ({ }) => {
                 gestureEnabled: true,
             }}
         >
-            {appGaoUserLogin == null ? (
-                <>
 
-                    <Stack.Screen
-                        name="SignIn"
-                        component={LoginPage}
-                        options={{
-                            headerShown: false,
-                        }}
-                    />
+            <Stack.Screen
+                name="SignIn"
+                component={LoginPage}
+                options={{
+                    headerShown: false,
+                }}
+            />
 
-                </>
-            ) : (
-                <>
-                    <Stack.Screen
-                        name="Home"
-                        component={HomePage}
-                        options={{
-                            headerShown: false,
-                        }}
-                    />
-                    <Stack.Screen
-                        name="Operation"
-                        component={OperationPage}
-                        options={{
-                            title: 'Operation',
-                            headerStyle: {
-                                backgroundColor: Cons.logoColor2,
-                            },
-                            headerTitleStyle: {
-                                color: 'white'
-                            },
-                            headerBackButtonMenuEnabled: true,
-                            headerTintColor: 'white',
-                        }}
-                    />
+            <Stack.Screen
+                name="Home"
+                component={HomePage}
+                options={{
+                    headerShown: false,
+                }}
+            />
+            <Stack.Screen
+                name="Operation"
+                component={OperationPage}
+                options={{
+                    title: 'Operation',
+                    headerStyle: {
+                        backgroundColor: Cons.logoColor2,
+                    },
+                    headerTitleStyle: {
+                        color: 'white'
+                    },
+                    headerBackButtonMenuEnabled: true,
+                    headerTintColor: 'white',
+                }}
+            />
 
-                    <Stack.Screen
-                        name="Profile"
-                        component={ProfilePage}
-                        options={{
-                            headerShown: false
-                        }}
-                    />
+            <Stack.Screen
+                name="Profile"
+                component={ProfilePage}
+                options={{
+                    headerShown: false
+                }}
+            />
 
-                    <Stack.Screen
-                        name="SearchPreventif"
-                        component={SearchPreventifPage}
-                        options={({ navigation }) => ({
-                            title: null,
-                            headerStyle: {
-                                backgroundColor: Cons.logoColor2,
-                            },
-                            headerTitleStyle: {
-                                color: 'white'
-                            },
-                            headerBackButtonMenuEnabled: true,
-                            headerTintColor: 'white',
-                            headerTitle: () => <CusHeader endPoint={'/api/preventif-wisma/datatable?user_mitra_id=' + appGaoUserLogin.user_mitra.id} />
-                        })}
-                    />
+            <Stack.Screen
+                name="SearchPreventif"
+                component={SearchPreventifPage}
+                options={({ navigation }) => ({
+                    title: null,
+                    headerStyle: {
+                        backgroundColor: Cons.logoColor2,
+                    },
+                    headerTitleStyle: {
+                        color: 'white'
+                    },
+                    headerBackButtonMenuEnabled: true,
+                    headerTintColor: 'white',
+                    headerTitle: () => <CusHeader endPoint={'/api/preventif-wisma/datatable?user_mitra_id=' + appGaoUserLogin.user_mitra.id} />
+                })}
+            />
 
-                    <Stack.Screen
-                        name="DetailPreventif"
-                        component={DetailPreventifPage}
-                        options={({ navigation }) => ({
-                            title: null,
-                            headerStyle: {
-                                backgroundColor: Cons.logoColor2,
-                            },
-                            headerTitleStyle: {
-                                color: 'white'
-                            },
-                            headerBackButtonMenuEnabled: true,
-                            headerTintColor: 'white',
+            <Stack.Screen
+                name="DetailPreventif"
+                component={DetailPreventifPage}
+                options={({ navigation }) => ({
+                    title: null,
+                    headerStyle: {
+                        backgroundColor: Cons.logoColor2,
+                    },
+                    headerTitleStyle: {
+                        color: 'white'
+                    },
+                    headerBackButtonMenuEnabled: true,
+                    headerTintColor: 'white',
 
-                        })}
-                    />
+                })}
+            />
 
-                    <Stack.Screen
-                        name="Preventif"
-                        component={PreventifPage}
-                        options={({ navigation }) => ({
-                            title:"Preventif Wisma",
-                            headerStyle: {
-                                backgroundColor: Cons.logoColor2,
-                            },
-                            headerTitleStyle: {
-                                color: 'white'
-                            },
-                            headerBackButtonMenuEnabled: true,
+            <Stack.Screen
+                name="Preventif"
+                component={PreventifPage}
+                options={({ navigation }) => ({
+                    title: "Preventif Wisma",
+                    headerStyle: {
+                        backgroundColor: Cons.logoColor2,
+                    },
+                    headerTitleStyle: {
+                        color: 'white'
+                    },
+                    headerBackButtonMenuEnabled: true,
 
-                            headerRight: () => (
-                                <TouchableOpacity
-                                    onPress={() => { navigation.navigate('SearchPreventif') }}
-                                >
-                                    <Text color="white">Cari</Text>
-                                </TouchableOpacity>
-                            ),
-                            headerTintColor: 'white',
-                        })}
+                    headerRight: () => (
+                        <TouchableOpacity
+                            onPress={() => { navigation.navigate('SearchPreventif') }}
+                        >
+                            <Text color="white">Cari</Text>
+                        </TouchableOpacity>
+                    ),
+                    headerTintColor: 'white',
+                })}
 
-                    />
+            />
 
-                </>
-            )
-            }
         </Stack.Navigator>
     </NavigationContainer>
 }

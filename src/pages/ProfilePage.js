@@ -19,6 +19,7 @@ import NavigationButton from "../components/NavigationButton"
 import { activePageProfile } from "../redux/actions/globalAction"
 import { Button, ButtonText } from "@gluestack-ui/themed"
 import { removeAppGaoUserLogin } from "../redux/actions/loginAction"
+import { useNavigation } from "@react-navigation/native"
 
 const ProfilePage = () => {
 
@@ -26,6 +27,7 @@ const ProfilePage = () => {
     const appGaoUserLogin = useSelector(state => state.login.getAppGaoUserLogin);
     const activePage = useSelector(state => state.global.getActivePage);
     const dispatch = useDispatch();
+    const navigation = useNavigation();
 
     const onRefresh = () => {
         setRefreshing(true);
@@ -243,7 +245,10 @@ const ProfilePage = () => {
                             position="absolute"
                             bottom={20}
                             backgroundColor={Cons.logoColor2}
-                            onPress={() => { dispatch(removeAppGaoUserLogin()); }}>
+                            onPress={() => { 
+                                dispatch(removeAppGaoUserLogin()),
+                                navigation.navigate('SignIn')
+                                 }}>
                             <ButtonText>Logout</ButtonText>
                         </Button>
                     </VStack>

@@ -6,10 +6,10 @@ import { Cons } from "../components/Cons";
 import CusFormControl from "../components/CusFormControl";
 
 import axios from "axios";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import { StorageService } from "../services/StorageService";
 import { getAppGaoUserLogin } from "../redux/actions/loginAction";
-import { useDispatch } from "react-redux";
+import { useDispatch,useSelector } from "react-redux";
 
 const LoginPage = ({ navigation }) => {
 
@@ -18,32 +18,48 @@ const LoginPage = ({ navigation }) => {
     const [isSpinning, setIsSpinning] = useState(false)
     const appGaoToken = StorageService.getItem('appGaoToken')
     const dispatch = useDispatch();
+    const appGaoUserLogin = useSelector(state => state.login.getAppGaoUserLogin);
 
-    const onPressLogin = () => {
+    useEffect(() => {
+        console.log(appGaoUserLogin)
+        if (appGaoUserLogin != null){
+            navigation.navigate('Home')
+        }
+    },[])
+
+    const onPressLogin = async () => {
         setIsSpinning(true)
+        try {
+            console.log(username, password)
+            const res = await axios.post(
+                Cons.apiServer + '/api/sign-in-gao',
+                {
+                    username: username,
+                    password: password,
+                    device_token: appGaoToken._j,
+                }
+            );
 
-        axios.post(
-            Cons.apiServer + '/api/sign-in-gao',
-            {
-                username: username,
-                password: password,
-                device_token: appGaoToken._j,
+            console.log(res.data)
+
+            if (res.status == 200) {
+                StorageService.storeItemObject('appGaoUserLogin', res.data);
+                console.log('success login');
+                dispatch(getAppGaoUserLogin());
+                navigation.navigate('Home')
+                setIsSpinning(false)
             }
-        )
-            .then(response => {
-                StorageService.storeItemObject('appGaoUserLogin', response.data)
-                console.log('success login')
-                Alert.alert('Success', 'success');
-                dispatch(getAppGaoUserLogin())
+            else {
+                Alert.alert('Failed', 'Credential Not Match !');
                 setIsSpinning(false)
-            }).catch(error => {
-                console.log(error.response.data.message)
-                Alert.alert('Failed', error.response.data.message);
-                setIsSpinning(false)
-            })
-        .finally(() => {
+            }
+        } catch (error) {
+            Alert.alert('Failed', error.response.data.message);
+
+        } finally {
+            console.log('request finish')
             setIsSpinning(false)
-        })
+        }
 
     }
 
