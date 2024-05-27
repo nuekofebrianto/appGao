@@ -107,17 +107,7 @@ const DetailPreventifPage = () => {
                             <Text color={Cons.primaryColor}>Approve</Text>
                         </TouchableOpacity>
                         :
-                        <TouchableOpacity
-                            style={{
-                                backgroundColor: 'white',
-                                padding: 10,
-                                marginLeft: 10,
-                                borderRadius: 5,
-                            }}
-                            onPress={handleClose}
-                        >
-                            <Text color={Cons.primaryColor}>Approve</Text>
-                        </TouchableOpacity>}
+                        ''}
                 </View>
 
             ),
