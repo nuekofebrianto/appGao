@@ -33,6 +33,7 @@ const LoginPage = ({ navigation }) => {
             .then(response => {
                 StorageService.storeItemObject('appGaoUserLogin', response.data)
                 console.log('success login')
+                Alert.alert('Success', 'success');
                 dispatch(getAppGaoUserLogin())
                 setIsSpinning(false)
             }).catch(error => {
@@ -40,9 +41,9 @@ const LoginPage = ({ navigation }) => {
                 Alert.alert('Failed', error.response.data.message);
                 setIsSpinning(false)
             })
-        // .finally(() => {
-        //     setIsSpinning(false)
-        // })
+        .finally(() => {
+            setIsSpinning(false)
+        })
 
     }
 

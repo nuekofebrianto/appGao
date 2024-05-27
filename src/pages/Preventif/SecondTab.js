@@ -11,7 +11,7 @@ const SecondTab = () => {
     const appGaoUserLogin = useSelector((state) => state.login.getAppGaoUserLogin);
     const { data, loading, endReached, page } = useSelector((state) => state.preventifWaitingApprovalReducer);
 
-    const path = '/api/preventif-wisma/datatable?entries=10&filter_columns=status_tiket&filter_keys=WAITING_APPROVAL&user_mitra_id=' + appGaoUserLogin.user_mitra.id;
+    const path = '/api/preventif-wisma/datatable?entries=10&filter_columns=status_tiket&filter_keys=waiting approval&user_mitra_id=' + appGaoUserLogin.user_mitra.id;
     const targetReducer = 'PREVENTIF_WAITING_APPROVAL';
 
     const [refreshing, setRefreshing] = useState(false);
@@ -78,15 +78,15 @@ const SecondTab = () => {
                         <HStack justifyContent='space-between'>
                             <Text style={{ fontSize: 16, fontWeight: 800, }}>{item.nomor}</Text>
 
-                            {item.status_tiket === 'DRAFT' ? (
+                            {item.status_tiket === 'draft' ? (
                                 <View style={{ backgroundColor: Cons.textColor, padding: 5, borderRadius: 5, }}>
                                     <Text style={{ fontSize: 12, color: 'white' }}>DRAFT</Text>
                                 </View>
-                            ) : item.status_tiket === 'WAITING_APPROVAL' ? (
+                            ) : item.status_tiket === 'waiting approval' ? (
                                 <View style={{ backgroundColor: Cons.logoColor2, padding: 5, borderRadius: 5, }}>
                                     <Text style={{ fontSize: 12, color: 'white' }}>WAITING APPROVAL</Text>
                                 </View>
-                            ) : item.status_tiket === 'COMPLETE' ? (
+                            ) : item.status_tiket === 'complete' ? (
                                 <View style={{ backgroundColor: Cons.positiveColor, padding: 5, borderRadius: 5, }}>
                                     <Text style={{ fontSize: 12, color: 'white' }}>COMPLETE</Text>
                                 </View>
