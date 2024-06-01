@@ -6,10 +6,10 @@ import { Cons } from "../components/Cons";
 import CusFormControl from "../components/CusFormControl";
 
 import axios from "axios";
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import { StorageService } from "../services/StorageService";
 import { getAppGaoUserLogin } from "../redux/actions/loginAction";
-import { useDispatch,useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const LoginPage = ({ navigation }) => {
 
@@ -22,43 +22,38 @@ const LoginPage = ({ navigation }) => {
 
     useEffect(() => {
         console.log(appGaoUserLogin)
-        if (appGaoUserLogin != null){
+        if (appGaoUserLogin != null) {
             navigation.navigate('Home')
         }
-    },[])
+    }, [])
 
-    const onPressLogin = async () => {
+    const onPressLogin = () => {
         setIsSpinning(true)
         try {
-            console.log(username, password)
-            const res = await axios.post(
+            axios.post(
                 Cons.apiServer + '/api/sign-in-gao',
                 {
                     username: username,
                     password: password,
                     device_token: appGaoToken._j,
                 }
-            );
+            )
+                .then((res) => {
+                    StorageService.storeItemObject('appGaoUserLogin', res.data);
+                    console.log('success login');
+                    Alert.alert('Success', 'Login Success !');
+                    dispatch(getAppGaoUserLogin());
+                    setIsSpinning(false)
+                    navigation.navigate('Home')
+                })
+                .catch((error) => {
+                    Alert.alert('Failed', 'Credential Not Match !');
+                    setIsSpinning(false)
+                })
 
-            console.log(res.data)
-
-            if (res.status == 200) {
-                StorageService.storeItemObject('appGaoUserLogin', res.data);
-                console.log('success login');
-                dispatch(getAppGaoUserLogin());
-                navigation.navigate('Home')
-                setIsSpinning(false)
-            }
-            else {
-                Alert.alert('Failed', 'Credential Not Match !');
-                setIsSpinning(false)
-            }
         } catch (error) {
             Alert.alert('Failed', error.response.data.message);
 
-        } finally {
-            console.log('request finish')
-            setIsSpinning(false)
         }
 
     }
