@@ -136,7 +136,7 @@ const ProfilePage = () => {
                             source={{
                                 uri: appGaoUserLogin.poto_profile_path,
                             }}
-                            alt={appGaoUserLogin.id}
+                            alt="photo profile"
 
                         />
                         :

@@ -11,6 +11,7 @@ import ProfilePage from "./ProfilePage";
 import SplashPage from "./SplashPage";
 import SearchPreventifPage from "./Preventif/Search";
 import DetailPreventifPage from "./Preventif/Detail";
+import PhotoPage from "./Preventif/Photo";
 
 import { Text } from "@gluestack-ui/themed";
 import { useDispatch, useSelector } from 'react-redux';
@@ -61,15 +62,16 @@ const NavigatorPage = ({ }) => {
                         name="Home"
                         component={HomePage}
                         options={{
-                            title: 'Home',
-                            headerStyle: {
-                                backgroundColor: Cons.logoColor2,
-                            },
-                            headerTitleStyle: {
-                                color: 'white'
-                            },
-                            headerBackButtonMenuEnabled: false,
-                            headerTintColor: 'white',
+                            // title: 'Home',
+                            // headerStyle: {
+                            //     backgroundColor: Cons.logoColor2,
+                            // },
+                            // headerTitleStyle: {
+                            //     color: 'white'
+                            // },
+                            // headerBackButtonMenuEnabled: false,
+                            // headerTintColor: 'white',
+                            headerShown: false,
                         }}
                     />
                     <Stack.Screen
@@ -127,6 +129,22 @@ const NavigatorPage = ({ }) => {
                             headerBackButtonMenuEnabled: true,
                             headerTintColor: 'white',
 
+                        })}
+                    />
+
+                    <Stack.Screen
+                        name="Photo"
+                        component={PhotoPage}
+                        options={({ navigation }) => ({
+                            title: null,
+                            headerStyle: {
+                                backgroundColor: Cons.logoColor2,
+                            },
+                            headerTitleStyle: {
+                                color: 'white'
+                            },
+                            headerBackButtonMenuEnabled: true,
+                            headerTintColor: 'white',
                         })}
                     />
 

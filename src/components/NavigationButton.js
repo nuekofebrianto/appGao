@@ -67,7 +67,7 @@ const NavigationButton = () => {
                 )}
             </VStack>
 
-            <VStack style={{
+            {/* <VStack style={{
                 alignItems: 'center',
             }}
                 onTouchStart = {() => { navigation.replace('Operation') }}
@@ -83,7 +83,7 @@ const NavigationButton = () => {
                         <Text   style = {{ fontSize: 12 }}>Operation</Text>
                     </>
                 )}
-            </VStack>
+            </VStack> */}
 
             <VStack style={{
                 alignItems    : 'center',

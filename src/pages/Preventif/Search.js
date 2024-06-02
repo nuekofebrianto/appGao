@@ -70,7 +70,7 @@ const SearchPreventifPage = () => {
                        </HStack>
                        <HStack justifyContent='space-between'>
                            <Text>{item.wisma.nama}</Text>
-                           <Text>{item.tanggal}</Text>
+                           <Text style={{fontSize:12 , paddingTop:5,}}>{item.tanggal}</Text>
                        </HStack>
 
                    </VStack>

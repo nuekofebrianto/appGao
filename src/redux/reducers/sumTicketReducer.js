@@ -2,6 +2,7 @@ const initialState = {
     data: null,
     loading: false,
     error: null,
+    dataChart: [],
 };
 
 const reducerName = 'SUM_TICKET';
@@ -32,6 +33,7 @@ const sumTicketReducer = (state = initialState, action) => {
                 data: null,
                 loading: false,
                 error: false,
+                dataChart: [],
             };
         default:
             return state;

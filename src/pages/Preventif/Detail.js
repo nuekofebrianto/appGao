@@ -1,9 +1,9 @@
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome"
 import { config } from "@gluestack-ui/config"
-import { GluestackUIProvider, HStack, ScrollView, StatusBar, Text, VStack, View } from "@gluestack-ui/themed"
+import { GluestackUIProvider, HStack, Image, ScrollView, StatusBar, Text, VStack, View } from "@gluestack-ui/themed"
 import { useNavigation, useRoute } from "@react-navigation/native"
 import React, { useEffect, useState } from "react"
-import { ActivityIndicator, TouchableOpacity } from "react-native"
+import { ActivityIndicator, Pressable, TouchableOpacity } from "react-native"
 import { useDispatch } from "react-redux"
 import { Cons } from "../../components/Cons"
 import { approveData } from "../../redux/actions/dataAction"
@@ -28,7 +28,7 @@ const DetailPreventifPage = () => {
     const preventifWismaItems = selectedItem.preventif_wisma_item;
     const appGaoUserLogin = useSelector((state) => state.login.getAppGaoUserLogin);
 
-    const path = '/api/preventif-wisma/approve?user_mitra_id='+appGaoUserLogin.user_mitra.id;
+    const path = '/api/preventif-wisma/approve?user_mitra_id=' + appGaoUserLogin.user_mitra.id;
     const targetReducer = 'PREVENTIF';
 
     const handleApprove = () => {
@@ -90,6 +90,7 @@ const DetailPreventifPage = () => {
     };
 
     useEffect(() => {
+        console.log(selectedItem)
         navigation.setOptions({
             title: 'Detail Preventif Wisma ',
             headerRight: () => (
@@ -181,7 +182,7 @@ const DetailPreventifPage = () => {
                     </HStack>
                     <HStack justifyContent='space-between'>
                         <Text>{selectedItem.wisma.nama}</Text>
-                        <Text>{selectedItem.tanggal}</Text>
+                        <Text style={{ fontSize: 12, paddingTop: 5, }}>{selectedItem.tanggal}</Text>
                     </HStack>
                     <HStack>
                         <Text style={{ fontSize: 12, fontWeight: 400, }}>
@@ -191,6 +192,48 @@ const DetailPreventifPage = () => {
                 </VStack>
 
                 {renderCards()}
+
+                <View style={{
+                    width: Cons.sw1 - 20,
+                    padding: 20,
+                    borderWidth: 0.2,
+                    borderColor: Cons.textColor,
+                    borderRadius: 5,
+                    backgroundColor: 'white',
+                    marginTop: 10,
+                    overflow: 'hidden',
+                }}>
+                    <View style={{ borderColor: Cons.textColor, borderBottomWidth: 0.2, marginBottom: 10 }}>
+                        <Text>UPLOADED PHOTO</Text>
+                    </View>
+
+                    <ScrollView w={Cons.sw1 - 60}
+                        contentContainerStyle={{ flexGrow: 1 }}
+                        scrollEventThrottle={16}
+                        horizontal={true}
+                    >
+
+                        {selectedItem.path.map((item, index) => (
+                            <Pressable key={index} onPress={() => navigation.navigate('Photo', { photoPath: item })}>
+                                <Image
+                                    backgroundColor="red"
+                                    w={40}
+                                    h={40}
+                                    marginRight={5}
+                                    borderRadius={5}
+                                    borderWidth={0.5}
+                                    borderColor={Cons.logoColor2}
+                                    source={{
+                                        uri: Cons.apiServer + item,
+                                    }}
+                                    alt={item}
+                                />
+                            </Pressable>
+
+                        ))}
+
+                    </ScrollView>
+                </View>
 
             </View>
         </ScrollView>

@@ -1,5 +1,5 @@
 import { config } from "@gluestack-ui/config"
-import { GluestackUIProvider, HStack, RefreshControl, ScrollView, StatusBar, Text, View } from "@gluestack-ui/themed"
+import { Divider, GluestackUIProvider, HStack, Pressable, RefreshControl, ScrollView, StatusBar, Text, VStack, View } from "@gluestack-ui/themed"
 import { useEffect, useState } from "react"
 import { useDispatch } from "react-redux"
 import { Cons } from "../components/Cons"
@@ -7,9 +7,12 @@ import NavigationButton from "../components/NavigationButton"
 import { activePageHome } from "../redux/actions/globalAction"
 import { sumData } from "../redux/actions/sumAction"
 import { useSelector } from "react-redux"
-import { ActivityIndicator } from "react-native"
+import { ActivityIndicator, TouchableOpacity } from "react-native"
 import { useNavigation } from "@react-navigation/native"
 import { PieChart } from "react-native-chart-kit"
+import LottieView from "lottie-react-native"
+import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome"
+import { Colors } from "react-native/Libraries/NewAppScreen"
 
 const HomePage = () => {
 
@@ -21,7 +24,9 @@ const HomePage = () => {
     const appGaoUserLogin = useSelector((state) => state.login.getAppGaoUserLogin);
 
     const path = '/api/dashboard/getsumpreventif?user_mitra_id=' + appGaoUserLogin.user_mitra.id;
+    const path2 = '/api/dashboard/getsumtiket?user_mitra_id=' + appGaoUserLogin.user_mitra.id;
     const targetReducer = 'SUM_PREVENTIF';
+    const targetReducer2 = 'SUM_TICKET';
 
     const formatMonthYear = (date) => {
         const options = { month: 'long', year: 'numeric' };
@@ -37,7 +42,7 @@ const HomePage = () => {
         setRefreshing(true);
 
         dispatch(sumData(path, targetReducer));
-        console.log(dataChartPreventif)
+        dispatch(sumData(path2, targetReducer2));
         setTimeout(() => {
             setRefreshing(false);
         }, 2000);
@@ -46,13 +51,7 @@ const HomePage = () => {
     useEffect(() => {
         dispatch(activePageHome())
         dispatch(sumData(path, targetReducer));
-
-        navigation.setOptions({
-            headerRight: () => (
-                <Text color="white">Periode {formattedDate}</Text>
-            ),
-        });
-
+        dispatch(sumData(path2, targetReducer2));
     }, [dispatch])
 
     return <GluestackUIProvider config={config}>
@@ -62,7 +61,7 @@ const HomePage = () => {
             flex: 1,
             justifyContent: 'center',
             alignItems: 'center',
-            backgroundColor: "#FFFFFF"
+            // backgroundColor: Cons.logoColor2
         }}>
             <ScrollView
                 w={Cons.sw1}
@@ -75,66 +74,139 @@ const HomePage = () => {
                     />
                 }
             >
-                <View style={{ flex: 1, justifyContent: 'start', alignItems: 'start', padding: 15 }}>
+                <View w={Cons.sw1} backgroundColor={Cons.logoColor2} h={Cons.sh4} position="absolute"
+                    style={{ borderBottomRightRadius: 50, borderBottomLeftRadius: 50, }}
+                ></View>
+                <VStack style={{ flex: 1, justifyContent: 'start', alignItems: 'start', }}>
+                    <Text color="white" style={{ height: 80, paddingTop: 20, alignSelf: 'center', fontSize: 20, }}>{
+                        appGaoUserLogin.user_mitra.nama
+                    }</Text>
+                    <HStack justifyContent="space-between" style={{ height: 40, paddingHorizontal: 30, }}>
+                        <Text color="white">Periode {formattedDate}</Text>
+                        <Text color="white">{dataPreventif ? dataPreventif.all : '0'} wisma</Text>
+                    </HStack>
 
-                    <View style={{ borderWidth: 0.5, borderColor: Cons.textColor, padding: 15, backgroundColor: 'white', borderRadius: 5, }}>
-                        <Text style={{ fontSize: 20, color: Cons.textColor }}>PREVENTIF</Text>
-                        <View style={{ height: Cons.sh4 }}>
-                            {dataChartPreventif.length > 0 ?
-                                <PieChart
-                                    data={dataChartPreventif}
-                                    width={Cons.sw2 - 32}
-                                    chartConfig={{
-                                        backgroundColor: '#ffffff',
-                                        backgroundGradientFrom: '#ffffff',
-                                        backgroundGradientTo: '#ffffff',
-                                        color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
-                                        labelColor: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
-                                        style: {
-                                            borderRadius: 16
-                                        },
-                                        propsForLabels: {
-                                            fontSize: 12,
-                                            fontWeight: 'bold'
-                                        }
-                                    }}
-                                    accessor="population"
-                                    backgroundColor="transparent"
-                                    paddingLeft="15"
-                                    absolute
-                                >
-                                </PieChart>
-                                // <Text>Chart</Text>
-                                :
-                                <ActivityIndicator></ActivityIndicator>
-                            }
-                        </View>
-                        {loadingPreventif ?
-                            <ActivityIndicator color={Cons.logoColor2} /> :
-                            <HStack justifyContent="space-between">
-                                <View>
-                                    <Text color={Cons.textColor}>not yet: {dataPreventif ? dataPreventif.notyet : '0'}</Text>
-                                </View>
-                                <View>
-                                    <Text color={Cons.logoColor2}>waiting: {dataPreventif ? dataPreventif.waiting_approval : '0'}</Text>
-                                </View>
-                                <View>
-                                    <Text color={Cons.positiveColor}>complete: {dataPreventif ? dataPreventif.complete : '0'}</Text>
-                                </View>
-                            </HStack>
-                        }
+                    <View
+                        style={{
+                            width: Cons.sw1,
+                            alignSelf: "Center",
+                            padding: 20,
+                        }}
+                    >
 
+                        <VStack
+                            style={{
+                                backgroundColor: "white",
+                                // height: Cons.sh4,
+                                borderRadius: 20,
+                                shadowColor: Cons.logoColor2,
+                                shadowOffset: {
+                                    width: 0,
+                                    height: 0,
+                                },
+                                shadowOpacity: 1,
+                                shadowRadius: 10,
+                                elevation: 3,
+                                paddingTop: 10,
+                                paddingBottom: 10,
+                                alignItems: 'center',
+                            }}
+                        >
+
+                            <TouchableOpacity onPress={() => navigation.navigate('Preventif')}>
+                                <HStack justifyContent="space-between" w="100%" paddingHorizontal={20}>
+                                    <Text style={{ fontSize: 20, color: Cons.textColor, }}>PREVENTIF</Text>
+                                    <FontAwesomeIcon icon={"chevron-right"} size={20} />
+                                </HStack>
+                            </TouchableOpacity>
+
+                            <Divider style={{ marginBottom: 10, marginTop: 10 }}></Divider>
+
+                            <VStack justifyContent="flex-start" w="100%" padding={10}>
+                                {loadingPreventif ?
+                                    <ActivityIndicator color={Cons.logoColor2} /> :
+                                    <VStack justifyContent="space-between">
+                                        <HStack>
+                                            <View style={{ height: 20, width: 20, backgroundColor: Cons.textColor, marginRight: 20, }}></View>
+                                            <Text color={Cons.textColor}>not yet: {dataPreventif ? dataPreventif.notyet : '0'}</Text>
+                                        </HStack>
+                                        <HStack>
+                                            <View style={{ height: 20, width: 20, backgroundColor: Cons.logoColor2, marginRight: 20, }}></View>
+                                            <Text color={Cons.logoColor2}>waiting approval: {dataPreventif ? dataPreventif.waiting_approval : '0'}</Text>
+                                        </HStack>
+                                        <HStack>
+                                            <View style={{ height: 20, width: 20, backgroundColor: Cons.positiveColor, marginRight: 20, }}></View>
+                                            <Text color={Cons.positiveColor}>complete: {dataPreventif ? dataPreventif.complete : '0'}</Text>
+                                        </HStack>
+                                    </VStack>
+                                }
+                            </VStack>
+
+                        </VStack>
                     </View>
 
-                    <Text>Ticket</Text>
-                    {loadingTicket && <ActivityIndicator size="large" color={Cons.logoColor2} />}
+                    <View
+                        style={{
+                            width: Cons.sw1,
+                            alignSelf: "Center",
+                            padding: 20,
+                        }}
+                    >
+                        <VStack
+                            style={{
+                                backgroundColor: "white",
+                                // height: Cons.sh4,
+                                borderRadius: 20,
+                                shadowColor: Cons.logoColor2,
+                                shadowOffset: {
+                                    width: 0,
+                                    height: 0,
+                                },
+                                shadowOpacity: 1,
+                                shadowRadius: 10,
+                                elevation: 3,
+                                paddingTop: 10,
+                                paddingBottom: 10,
+                                alignItems: 'center',
+                            }}
+                        >
+                            {/* <TouchableOpacity> */}
+                                <HStack justifyContent="space-between" w="100%" paddingHorizontal={20}>
+                                    <Text style={{ fontSize: 20, color: Cons.textColor, }}>TICKET</Text>
+                                    <FontAwesomeIcon icon={"chevron-right"} size={20} color="white" />
+                                </HStack>
+                            {/* </TouchableOpacity> */}
 
-                </View>
-            </ScrollView>
+                            <Divider style={{ marginBottom: 10, marginTop: 10 }}></Divider>
+                            <VStack justifyContent="flex-start" w="100%" padding={10}>
+                                {loadingTicket ?
+                                    <ActivityIndicator color={Cons.logoColor2} /> :
+                                    <VStack justifyContent="space-between">
+                                        <HStack>
+                                            <View style={{ height: 20, width: 20, backgroundColor: Cons.textColor, marginRight: 20, }}></View>
+                                            <Text color={Cons.textColor}>not yet: {dataTicket ? dataTicket.notyet : '0'}</Text>
+                                        </HStack>
+                                        <HStack>
+                                            <View style={{ height: 20, width: 20, backgroundColor: Cons.logoColor2, marginRight: 20, }}></View>
+                                            <Text color={Cons.logoColor2}>waiting approval: {dataTicket ? dataTicket.waiting_approval : '0'}</Text>
+                                        </HStack>
+                                        <HStack>
+                                            <View style={{ height: 20, width: 20, backgroundColor: Cons.positiveColor, marginRight: 20, }}></View>
+                                            <Text color={Cons.positiveColor}>complete: {dataTicket ? dataTicket.complete : '0'}</Text>
+                                        </HStack>
+                                    </VStack>
+                                }
+                            </VStack>
+
+                        </VStack>
+                    </View>
+
+                </VStack>
+            </ScrollView >
 
             <NavigationButton></NavigationButton>
-        </View>
-    </GluestackUIProvider>
+        </View >
+    </GluestackUIProvider >
 }
 
 export default HomePage

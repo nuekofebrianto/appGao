@@ -21,7 +21,7 @@ export const sumData = (path, target) => async (dispatch) => {
 
         const res = await response.data;
 
-        dispatch({
+        await dispatch({
             type: 'GET' + target,
             payload: {
                 data: res,
