@@ -16,10 +16,10 @@ export const Cons = {
   negativeColor: "#e11d48",
   bgColor      : "#f6f6f6",
   textColor    : "#262626",
-  
-  // apiServer: "http://192.168.75.18:8000",
+
+  apiServer: "http://192.168.16.18:8000",
     // apiServer: "http://192.168.205.18:8000",
-    apiServer: "http://sso.simpledev.id",
+    // apiServer: "http://sso.simpledev.id",
 
   logoColor1: "#393186",
   logoColor2: "#E62931",

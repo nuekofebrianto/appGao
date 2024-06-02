@@ -41,10 +41,10 @@ const LoginPage = ({ navigation }) => {
                 .then((res) => {
                     StorageService.storeItemObject('appGaoUserLogin', res.data);
                     console.log('success login');
-                    Alert.alert('Success', 'Login Success !');
+                    // Alert.alert('Success', 'Login Success !');
                     dispatch(getAppGaoUserLogin());
                     setIsSpinning(false)
-                    navigation.navigate('Home')
+                    // navigation.navigate('Home')
                 })
                 .catch((error) => {
                     Alert.alert('Failed', 'Credential Not Match !');
