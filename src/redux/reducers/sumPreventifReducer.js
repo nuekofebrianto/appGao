@@ -2,6 +2,7 @@ const initialState = {
     data: null,
     loading: false,
     error: null,
+    dataChart: [],
 };
 
 const reducerName = 'SUM_PREVENTIF';
@@ -12,6 +13,7 @@ const sumPreventifReducer = (state = initialState, action) => {
             return {
                 ...state,
                 data: action.payload.data,
+                dataChart: action.payload.dataChart,
                 loading: false,
                 error: false,
             };
@@ -32,6 +34,7 @@ const sumPreventifReducer = (state = initialState, action) => {
                 data: null,
                 loading: false,
                 error: false,
+                dataChart: [],
             };
         default:
             return state;

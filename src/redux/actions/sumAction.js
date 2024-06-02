@@ -21,11 +21,17 @@ export const sumData = (path, target) => async (dispatch) => {
 
         const res = await response.data;
 
-        console.log('data : ', res)
-
         dispatch({
             type: 'GET' + target,
-            payload: { data: res },
+            payload: {
+                data: res,
+                dataChart: [
+                    { name: 'All', population: res.all, color: '#f00', legendFontColor: '#7F7F7F', legendFontSize: 15 },
+                    { name: 'Complete', population: res.complete, color: '#0f0', legendFontColor: '#7F7F7F', legendFontSize: 15 },
+                    { name: 'Waiting Approval', population: res.waiting_approval, color: '#00f', legendFontColor: '#7F7F7F', legendFontSize: 15 },
+                    { name: 'Not Yet', population: res.notyet, color: '#ff0', legendFontColor: '#7F7F7F', legendFontSize: 15 }
+                ]
+            },
         });
 
     } catch (error) {
