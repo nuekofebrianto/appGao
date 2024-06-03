@@ -127,16 +127,25 @@ const HomePage = () => {
                                     <ActivityIndicator color={Cons.logoColor2} /> :
                                     <VStack justifyContent="space-between">
                                         <HStack>
-                                            <View style={{ height: 20, width: 20, backgroundColor: Cons.textColor, marginRight: 20, }}></View>
-                                            <Text color={Cons.textColor}>not yet: {dataPreventif ? dataPreventif.notyet : '0'}</Text>
+                                            <View style={{ height: 20, width: 20, borderRadius: 20, backgroundColor: Cons.textColor, marginRight: 20, }}></View>
+                                            <HStack justifyContent="space-between" width={Cons.sw1-120}>
+                                                <Text color={Cons.textColor}>notyet </Text>
+                                                <Text color={Cons.textColor}>{dataPreventif ? dataPreventif.notyet : '0'}</Text>
+                                            </HStack>
                                         </HStack>
                                         <HStack>
-                                            <View style={{ height: 20, width: 20, backgroundColor: Cons.logoColor2, marginRight: 20, }}></View>
-                                            <Text color={Cons.logoColor2}>waiting approval: {dataPreventif ? dataPreventif.waiting_approval : '0'}</Text>
+                                            <View style={{ height: 20, width: 20, borderRadius: 20, backgroundColor: Cons.logoColor2, marginRight: 20, }}></View>
+                                            <HStack justifyContent="space-between" width={Cons.sw1-120}>
+                                                <Text color={Cons.logoColor2}>waiting approval </Text>
+                                                <Text color={Cons.logoColor2}>{dataPreventif ? dataPreventif.waiting_approval : '0'}</Text>
+                                            </HStack>
                                         </HStack>
                                         <HStack>
-                                            <View style={{ height: 20, width: 20, backgroundColor: Cons.positiveColor, marginRight: 20, }}></View>
-                                            <Text color={Cons.positiveColor}>complete: {dataPreventif ? dataPreventif.complete : '0'}</Text>
+                                            <View style={{ height: 20, width: 20, borderRadius: 20, backgroundColor: Cons.positiveColor, marginRight: 20, }}></View>
+                                            <HStack justifyContent="space-between" width={Cons.sw1-120}>
+                                                <Text color={Cons.positiveColor}>complete </Text>
+                                                <Text color={Cons.positiveColor}>{dataPreventif ? dataPreventif.complete : '0'}</Text>
+                                            </HStack>
                                         </HStack>
                                     </VStack>
                                 }
@@ -171,10 +180,10 @@ const HomePage = () => {
                             }}
                         >
                             {/* <TouchableOpacity> */}
-                                <HStack justifyContent="space-between" w="100%" paddingHorizontal={20}>
-                                    <Text style={{ fontSize: 20, color: Cons.textColor, }}>TICKET</Text>
-                                    <FontAwesomeIcon icon={"chevron-right"} size={20} color="white" />
-                                </HStack>
+                            <HStack justifyContent="space-between" w="100%" paddingHorizontal={20}>
+                                <Text style={{ fontSize: 20, color: Cons.textColor, }}>TICKET</Text>
+                                <FontAwesomeIcon icon={"chevron-right"} size={20} color="white" />
+                            </HStack>
                             {/* </TouchableOpacity> */}
 
                             <Divider style={{ marginBottom: 10, marginTop: 10 }}></Divider>
@@ -183,16 +192,25 @@ const HomePage = () => {
                                     <ActivityIndicator color={Cons.logoColor2} /> :
                                     <VStack justifyContent="space-between">
                                         <HStack>
-                                            <View style={{ height: 20, width: 20, backgroundColor: Cons.textColor, marginRight: 20, }}></View>
-                                            <Text color={Cons.textColor}>not yet: {dataTicket ? dataTicket.notyet : '0'}</Text>
+                                            <View style={{ height: 20, width: 20, borderRadius: 20, backgroundColor: Cons.textColor, marginRight: 20, }}></View>
+                                            <HStack justifyContent="space-between" width={Cons.sw1-120}>
+                                                <Text color={Cons.textColor}>notyet </Text>
+                                                <Text color={Cons.textColor}>{dataTicket ? dataTicket.notyet : '0'}</Text>
+                                            </HStack>
                                         </HStack>
                                         <HStack>
-                                            <View style={{ height: 20, width: 20, backgroundColor: Cons.logoColor2, marginRight: 20, }}></View>
-                                            <Text color={Cons.logoColor2}>waiting approval: {dataTicket ? dataTicket.waiting_approval : '0'}</Text>
+                                            <View style={{ height: 20, width: 20, borderRadius: 20, backgroundColor: Cons.logoColor2, marginRight: 20, }}></View>
+                                            <HStack justifyContent="space-between" width={Cons.sw1-120}>
+                                                <Text color={Cons.logoColor2}>waiting approval </Text>
+                                                <Text color={Cons.logoColor2}>{dataTicket ? dataTicket.waiting_approval : '0'}</Text>
+                                            </HStack>
                                         </HStack>
                                         <HStack>
-                                            <View style={{ height: 20, width: 20, backgroundColor: Cons.positiveColor, marginRight: 20, }}></View>
-                                            <Text color={Cons.positiveColor}>complete: {dataTicket ? dataTicket.complete : '0'}</Text>
+                                            <View style={{ height: 20, width: 20, borderRadius: 20, backgroundColor: Cons.positiveColor, marginRight: 20, }}></View>
+                                            <HStack justifyContent="space-between" width={Cons.sw1-120}>
+                                                <Text color={Cons.positiveColor}>complete </Text>
+                                                <Text color={Cons.positiveColor}>{dataTicket ? dataTicket.complete : '0'}</Text>
+                                            </HStack>
                                         </HStack>
                                     </VStack>
                                 }

@@ -90,7 +90,6 @@ const DetailPreventifPage = () => {
     };
 
     useEffect(() => {
-        console.log(selectedItem)
         navigation.setOptions({
             title: 'Detail Preventif Wisma ',
             headerRight: () => (
