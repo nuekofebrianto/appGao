@@ -246,8 +246,7 @@ const ProfilePage = () => {
                             bottom={20}
                             backgroundColor={Cons.logoColor2}
                             onPress={() => { 
-                                dispatch(removeAppGaoUserLogin()),
-                                navigation.navigate('SignIn')
+                                dispatch(removeAppGaoUserLogin())
                                  }}>
                             <ButtonText>Logout</ButtonText>
                         </Button>
