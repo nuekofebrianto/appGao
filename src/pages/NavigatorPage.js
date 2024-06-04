@@ -62,6 +62,8 @@ const NavigatorPage = ({ }) => {
                         name="Home"
                         component={HomePage}
                         options={{
+                            animationEnabled: true, 
+                            animationTypeForReplace: 'push', 
                             // title: 'Home',
                             // headerStyle: {
                             //     backgroundColor: Cons.logoColor2,
@@ -94,7 +96,10 @@ const NavigatorPage = ({ }) => {
                         name="Profile"
                         component={ProfilePage}
                         options={{
-                            headerShown: false
+                            headerShown: false,
+                            animationEnabled: true, 
+                            animationTypeForReplace: 'push', 
+                            animationDuration:10000,
                         }}
                     />
 
