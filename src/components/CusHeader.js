@@ -17,7 +17,7 @@ const CusHeader = ({ endPoint }) => {
 
     const handleSearch = () => {
         if (searchValue !=''){
-            dispatch(fetchData(1, path + '&search_columns=nomor&search_key='+searchValue, targetReducer));
+            dispatch(fetchData(1, path + '&search_columns=wisma.nama&search_key='+searchValue, targetReducer));
         }else{
             dispatch(fetchData(1, path , targetReducer));
         }
@@ -37,7 +37,7 @@ const CusHeader = ({ endPoint }) => {
                     height: 40,
 
                 }}
-                placeholder="Search Nomor"
+                placeholder="Search Wisma"
                 value={searchValue}
                 onChangeText={setSearchValue}
                 onSubmitEditing={handleSearch}

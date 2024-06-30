@@ -17,7 +17,7 @@ export const Cons = {
   bgColor      : "#f6f6f6",
   textColor    : "#262626",
 
-  // apiServer: "http://192.168.68.82:8000",
+  // apiServer: "http://192.168.47.18:8000",
     // apiServer: "http://192.168.205.18:8000",
     apiServer: "http://sso.simpledev.id",
 

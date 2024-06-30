@@ -12,6 +12,11 @@ import SplashPage from "./SplashPage";
 import SearchPreventifPage from "./Preventif/Search";
 import DetailPreventifPage from "./Preventif/Detail";
 import PhotoPage from "./Preventif/Photo";
+import TiketPage from "./Tiket/Index";
+import SearchTiketPage from "./Tiket/Search";
+import DetailTiketPage from "./Tiket/Detail";
+import DetailTiketKendaraanPage from "./Tiket/DetailKendaraan";
+import ListTiketPage from "./Tiket/List";
 
 import { Text } from "@gluestack-ui/themed";
 import { useDispatch, useSelector } from 'react-redux';
@@ -62,8 +67,8 @@ const NavigatorPage = ({ }) => {
                         name="Home"
                         component={HomePage}
                         options={{
-                            animationEnabled: true, 
-                            animationTypeForReplace: 'push', 
+                            animationEnabled: true,
+                            animationTypeForReplace: 'push',
                             // title: 'Home',
                             // headerStyle: {
                             //     backgroundColor: Cons.logoColor2,
@@ -97,9 +102,9 @@ const NavigatorPage = ({ }) => {
                         component={ProfilePage}
                         options={{
                             headerShown: false,
-                            animationEnabled: true, 
-                            animationTypeForReplace: 'push', 
-                            animationDuration:10000,
+                            animationEnabled: true,
+                            animationTypeForReplace: 'push',
+                            animationDuration: 10000,
                         }}
                     />
 
@@ -121,8 +126,76 @@ const NavigatorPage = ({ }) => {
                     />
 
                     <Stack.Screen
+                        name="SearchTiket"
+                        component={SearchTiketPage}
+                        options={({ navigation }) => ({
+                            title: null,
+                            headerStyle: {
+                                backgroundColor: Cons.logoColor2,
+                            },
+                            headerTitleStyle: {
+                                color: 'white'
+                            },
+                            headerBackButtonMenuEnabled: true,
+                            headerTintColor: 'white',
+                            headerTitle: () => <CusHeader endPoint={'/api/tiket-wisma/datatable?user_mitra_id=' + appGaoUserLogin.user_mitra.id} />
+                        })}
+                    />
+
+                    <Stack.Screen
                         name="DetailPreventif"
                         component={DetailPreventifPage}
+                        options={({ navigation }) => ({
+                            title: null,
+                            headerStyle: {
+                                backgroundColor: Cons.logoColor2,
+                            },
+                            headerTitleStyle: {
+                                color: 'white'
+                            },
+                            headerBackButtonMenuEnabled: true,
+                            headerTintColor: 'white',
+
+                        })}
+                    />
+
+                    <Stack.Screen
+                        name="ListTiket"
+                        component={ListTiketPage}
+                        options={({ navigation }) => ({
+                            title: null,
+                            headerStyle: {
+                                backgroundColor: Cons.logoColor2,
+                            },
+                            headerTitleStyle: {
+                                color: 'white'
+                            },
+                            headerBackButtonMenuEnabled: true,
+                            headerTintColor: 'white',
+
+                        })}
+                    />
+
+                    <Stack.Screen
+                        name="DetailTiket"
+                        component={DetailTiketPage}
+                        options={({ navigation }) => ({
+                            title: null,
+                            headerStyle: {
+                                backgroundColor: Cons.logoColor2,
+                            },
+                            headerTitleStyle: {
+                                color: 'white'
+                            },
+                            headerBackButtonMenuEnabled: true,
+                            headerTintColor: 'white',
+
+                        })}
+                    />
+
+                    <Stack.Screen
+                        name="DetailTiketKendaraan"
+                        component={DetailTiketKendaraanPage}
                         options={({ navigation }) => ({
                             title: null,
                             headerStyle: {
@@ -177,6 +250,32 @@ const NavigatorPage = ({ }) => {
                         })}
 
                     />
+
+                    <Stack.Screen
+                        name="Tiket"
+                        component={TiketPage}
+                        options={({ navigation }) => ({
+                            title: "Tiket",
+                            headerStyle: {
+                                backgroundColor: Cons.logoColor2,
+                            },
+                            headerTitleStyle: {
+                                color: 'white'
+                            },
+                            headerBackButtonMenuEnabled: true,
+
+                            headerRight: () => (
+                                <TouchableOpacity
+                                    onPress={() => { navigation.navigate('SearchTiket') }}
+                                >
+                                    <Text color="white">Cari</Text>
+                                </TouchableOpacity>
+                            ),
+                            headerTintColor: 'white',
+                        })}
+
+                    />
+
                 </>
             )}
 
