@@ -17,8 +17,6 @@ export const fetchData = (page, path, target) => async (dispatch) => {
         const res = await response.data;
         const datas = await res.data;
 
-        console.log(Cons.apiServer + path)
-
         if (Array.isArray(res.data)) {
             if (res.current_page == 1) {
                 dispatch({

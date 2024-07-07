@@ -20,7 +20,7 @@ const SecondTab = () => {
     const navigation = useNavigation();
 
     const goToDetail = (item) => {
-        navigation.navigate('DetailTiket', { selectedItem: item });
+        navigation.navigate('ListTiket', { selectedItem: item });
     };
 
     const onRefresh = async () => {

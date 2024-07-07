@@ -4,6 +4,7 @@ const initialStates = {
     error: null,
     page: 1,
     endReached: false,
+    selectedItem: null,
 };
 
 const reducerName = 'PREVENTIF_WAITING_APPROVAL';
