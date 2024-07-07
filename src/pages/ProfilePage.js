@@ -20,11 +20,15 @@ import { activePageProfile } from "../redux/actions/globalAction"
 import { Button, ButtonText } from "@gluestack-ui/themed"
 import { removeAppGaoUserLogin } from "../redux/actions/loginAction"
 import { useNavigation } from "@react-navigation/native"
+import { StorageService } from "../services/StorageService"
+import { Alert } from "react-native"
+import axios from "axios";
 
 const ProfilePage = () => {
 
     const [refreshing, setRefreshing] = useState(false);
     const appGaoUserLogin = useSelector(state => state.login.getAppGaoUserLogin);
+    const appGaoToken = StorageService.getItem('appGaoToken')
     const activePage = useSelector(state => state.global.getActivePage);
     const dispatch = useDispatch();
     const navigation = useNavigation();
@@ -36,6 +40,28 @@ const ProfilePage = () => {
             setRefreshing(false);
         }, 2000);
     };
+
+    const onPressLogout = () => {
+        try {
+            axios.post(
+                Cons.apiServer + '/api/sign-out-gao',
+                {
+                    device_token: appGaoToken._j,
+                }
+            )
+                .then((res) => {
+                    dispatch(removeAppGaoUserLogin())
+                })
+                .catch((error) => {
+                    Alert.alert('Failed', 'Error Logout1 !'); 
+                })
+
+        } catch (error) {
+            Alert.alert('Failed', 'Error Logout2 !'); 
+
+        }
+
+    }
 
     useEffect(() => {
         dispatch(activePageProfile())
@@ -245,9 +271,7 @@ const ProfilePage = () => {
                             position="absolute"
                             bottom={20}
                             backgroundColor={Cons.logoColor2}
-                            onPress={() => { 
-                                dispatch(removeAppGaoUserLogin())
-                                 }}>
+                            onPress={onPressLogout}>
                             <ButtonText>Logout</ButtonText>
                         </Button>
                     </VStack>
